@@ -1,0 +1,66 @@
+<component name="libraryTable">
+  <library name="wcf-web">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Aspects/lib/wcf/wcf-web.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/web/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/web/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/core/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/core/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/data/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/data/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/help/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/help/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/core4/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/core4/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/data4/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/data4/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/tools/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/views/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/views/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/portal/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/portal/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/proto3/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/proto4/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/hoaryds/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/startup/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/tooling/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/tooling/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/examples/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/internal/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/portlets/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/services/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/examples4/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/examples4/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/extension/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/prototype/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/publicapi/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/publicapi/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/components/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/components/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/datasource/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/datasource/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/themeutils/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/themeutils/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/datasupport/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/datasupport/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/metadata2ds/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/datasupport4/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/datasupport4/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/servicelayer/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/compatibility/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/compatibility4/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/compatibility4/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/activitymanager/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/typesdatasource/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/sampledatasource/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/sampledatasource/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/schemadatasource/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/schemadatasource/test/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/dashboarddatasource/src/java" />
+      <root url="file://$PROJECT_DIR$/../../forge_wcf/dashboarddatasource/test/java" />
+    </SOURCES>
+  </library>
+</component>
