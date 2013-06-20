@@ -107,33 +107,7 @@
 		<delete dir="${wcf.dir}"/>
 	</target>
 	
-	<!-- Automation -->
-	<target name="uninstallCar" depends="init" description="Uninstall Cartridge">
-		<!-- disable the cartridge first - belt and braces -->
-		<java jar="${fglclient.dir}/foglight-cmdline-client.jar" fork="true" failonerror="false">
-			<arg line='-usr ${foglight.user} -pwd ${foglight.password} -srv ${foglight.server} -port ${foglight.port} -cmd cartridge:disable -n "${cartridge.name}" -v ${cartridge.version} ' />
-			<classpath path="${env.FGLHOME}/client">
-			</classpath>
-		</java>
-		<!-- really uninstall it now -->
-		<java jar="${fglclient.dir}/foglight-cmdline-client.jar" fork="true" failonerror="false">
-			<arg line='-usr ${foglight.user} -pwd ${foglight.password} -srv ${foglight.server} -port ${foglight.port} -cmd cartridge:uninstall -n "${cartridge.name}" -v ${cartridge.version} ' />
-			<classpath path="${env.FGLHOME}/client">
-			</classpath>
-		</java>
-	</target>
-	
-	<target name="installCar" depends="car" description="Install Cartridge">
-		<java jar="${fglclient.dir}/foglight-cmdline-client.jar" fork="true" failonerror="true">
-			<arg line="-usr ${foglight.user} -pwd ${foglight.password} -srv ${foglight.server} -port ${foglight.port} -cmd cartridge:install -f ${dist.dir}/${cartridge.carfile} "/>
-			<classpath path="${env.FGLHOME}/client">
-			</classpath>
-		</java>
-	</target>
-	<target name="reinstallCar" depends="car" description="Re Install Cartridge">
-		<antcall target="uninstallCar"/>
-		<antcall target="installCar"/>
-	</target>
+
 
 	<macrodef name="fglcmd">
 			<attribute name="command" />
