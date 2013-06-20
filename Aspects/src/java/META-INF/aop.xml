@@ -1,0 +1,13 @@
+<aspectj>
+    <aspects>
+        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.PlainTracer"/>
+       <!-- <aspect name="net.andrewewhite.aspects.MySimpleTrace"/>-->
+
+    </aspects>
+
+    <weaver options="-verbose -showWeaveInfo">
+        <include within="com.quest.forge.ui..*"/>
+        <include within="de.dsg..*"/>
+
+    </weaver>
+</aspectj>
