@@ -72,8 +72,8 @@ public class EntryExecutionNode {
         sb.append("[ ")
                 .append(_entryInfo)
                 .append("  ")
-                .append(isDone() ? getDuration() : -1);
-                .append("ms ]")
+                .append(isDone() ? getDuration() : -1)
+                .append("ms ]")  ;
         return sb.toString();
     }
     @Override
@@ -122,11 +122,11 @@ public class EntryExecutionNode {
     }
 
     public String dumpTreeStructure(){
-        Queue<TreeDumpHelper> queue = new LinkedList<TreeDumpHelper>();
         StringBuffer buff = new StringBuffer("");
 
         dumpTreeStructure("-",this,buff);
 
+        return buff.toString();
     }
 
     private void dumpTreeStructure(String line, EntryExecutionNode currentNode, StringBuffer buff) {
