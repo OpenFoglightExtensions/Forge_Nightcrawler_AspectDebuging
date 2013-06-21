@@ -75,6 +75,8 @@ public class EntryTrace {
 
              if (entry.getOriginatingEntry() == null) {
                  System.out.println("RootNode:"+node);
+                 System.out.println("------------------");
+                 System.out.println(node.dumpTreeStructure());
              }
 
 

@@ -3,7 +3,10 @@ package de.dsg.forge.nc.aspectDebugger.data;
 import com.quest.forge.ui.web.queue.Entry;
 
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,6 +66,16 @@ public class EntryExecutionNode {
         _entryDetailedInfos = entryInfoString;
     }
 
+    private String toShortString() {
+        StringBuffer sb = new StringBuffer(_entryInfo);
+
+        sb.append("[ ")
+                .append(_entryInfo)
+                .append("  ")
+                .append(isDone() ? getDuration() : -1);
+                .append("ms ]")
+        return sb.toString();
+    }
     @Override
     public String toString() {
 
@@ -107,5 +120,30 @@ public class EntryExecutionNode {
     public synchronized void  setParent(EntryExecutionNode parent) {
         this._parent = parent;
     }
+
+    public String dumpTreeStructure(){
+        Queue<TreeDumpHelper> queue = new LinkedList<TreeDumpHelper>();
+        StringBuffer buff = new StringBuffer("");
+
+        dumpTreeStructure("-",this,buff);
+
+    }
+
+    private void dumpTreeStructure(String line, EntryExecutionNode currentNode, StringBuffer buff) {
+        buff.append(line)
+                .append(currentNode.toShortString())
+                .append("\n");
+
+        for(EntryExecutionNode n: currentNode._children) {
+            dumpTreeStructure("  "+line,n,buff);
+        }
+
+    }
+
+    private Iterator<EntryExecutionNode> iterateChildren() {
+        return _children.iterator();
+    }
+
+
 
 }
