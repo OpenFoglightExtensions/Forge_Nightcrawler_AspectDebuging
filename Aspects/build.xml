@@ -189,18 +189,35 @@
 
     <target name="startTomcat" depends="aspectJar"                     description="Start Tomcat with Aspects">
 
-        <copy file="${dist.dir}/NCAspectDebugger_aspects.jar" todir="${tomcat.home}/lib/"/>
-
+       <copy file="${dist.dir}/NCAspectDebugger_aspects.jar" todir="${tomcat.home}/webapps/portal/WEB-INF/lib"/>
+       <copy file="${basedir}/lib/aspectj/aspectjrt.jar" todir="${tomcat.home}/webapps/portal/WEB-INF/lib"/>
 
         <exec dir="${tomcat.home}" spawn="true" executable="${tomcat.command}" >
+            <arg value="jpda"/>
             <arg value="start"/>
             <env key="JAVA_OPTS" value="-javaagent:${aspectj.home}/lib/aspectjweaver.jar"/>
         </exec>
     </target>
 
-    <target name="stopTomcat"                     description="Stop Tomcat with Aspects">
+    <target name="startTomcatPlain"             description="Start Tomcat with Aspects">
 
-        <copy file="${dist.dir}/NCAspectDebugger_aspects.jar" todir="${tomcat.home}/lib/"/>
+        <delete file="${tomcat.home}/webapps/portal/WEB-INF/lib/NCAspectDebugger_aspects.jar"/>
+        <delete file="${tomcat.home}/webapps/portal/WEB-INF/lib/aspectjrt.jar"/>
+
+        <exec dir="${tomcat.home}" spawn="true" executable="${tomcat.command}" >
+            <arg value="jpda"/>
+            <arg value="start"/>
+            <env key="JAVA_OPTS" value=""/>
+        </exec>
+    </target>
+
+    <target name="resetTomcatPortal"             description="Start Tomcat with Aspects">
+
+        <delete dir="${tomcat.home}/webapps/portal"/>
+
+    </target>
+
+    <target name="stopTomcat"                     description="Stop Tomcat with Aspects">
 
 
         <exec dir="${tomcat.home}" spawn="true" executable="${tomcat.command}" >
