@@ -67,10 +67,10 @@ public class EntryExecutionNode {
     }
 
     private String toShortString() {
-        StringBuffer sb = new StringBuffer(_entryInfo);
+        StringBuffer sb = new StringBuffer();
 
         sb.append("[ ")
-                .append(_entryInfo)
+                .append((_entryDetailedInfos.equals(""))?_entryInfo:_entryDetailedInfos)
                 .append("  ")
                 .append(isDone() ? getDuration() : -1)
                 .append("ms ]")  ;

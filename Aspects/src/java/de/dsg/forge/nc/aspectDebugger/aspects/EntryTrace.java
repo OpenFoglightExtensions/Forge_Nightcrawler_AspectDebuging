@@ -95,11 +95,8 @@ public class EntryTrace {
 
     private String getEntryInfoString(Entry entry) {
 
-        String parent = (entry.getOriginatingEntry() != null)?entry.getOriginatingEntry().toString():"root";
 
-        StringBuffer dumpTxt = new StringBuffer(parent);
-        dumpTxt.append("  -->  ")
-                .append(entry.toString())
+        StringBuffer dumpTxt = new StringBuffer(entry.toString())
                 .append("\n");
 
         if (_entryInfos.containsKey(entry)) {
