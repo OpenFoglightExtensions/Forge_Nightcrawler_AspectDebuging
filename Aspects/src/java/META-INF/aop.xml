@@ -1,7 +1,8 @@
 <aspectj>
     <aspects>
-        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.PlainTracer"/>
-       <!-- <aspect name="net.andrewewhite.aspects.MySimpleTrace"/>-->
+       <!-- <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.PlainTracer"/>-->
+        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.SessionConnector"/>
+        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.EntryTrace"/>
 
     </aspects>
 
