@@ -7,7 +7,7 @@
     is now in configuration.properties
 -->
 
-<project name="ExportedCartridge" basedir="." default="car" >
+<project name="ExportedCartridge" basedir="." default="aspectJar" >
 	
 	<!-- User configuration -->
 	<property file="${basedir}/configuration.properties"/>
@@ -75,27 +75,8 @@
 				<include name="*.jar"/>
 			</fileset>
 		</path>
-		<taskdef name="car" classname="com.quest.nitro.tools.ant.cartridge.Car" classpathref="fglant.path"/>
 	</target>
-	
-	
-	<target name="car" depends="init">
-		
-		<ant antfile="${basedir}/src/build/build_content.xml" inheritall="true" target="_car">
-			</ant>
-		
-		<!--
-		 Please use this section to add static overwrites and additions to the Cartridge.
-		 Please DO NOT change build_content.xml because this will overwritten on the next Ressource Export
-		 
-		<car destdir="${dist.dir}" final="false" append="true">
-					<cartridge name="${cartridge.name}" version="${cartridge.version}" buildId="${build.id}" author="${cartridge.author}" foglightversion="5.0" classloadingstyle="local_first" type="user">
-		
-					</cartridge>
-				</car>
-		-->
-	</target>
-	
+
 	<target name="clean" description="Clean before rebuild">
 		<delete dir="${build.dir}"/>
 		<delete dir="${dist.dir}"/>
