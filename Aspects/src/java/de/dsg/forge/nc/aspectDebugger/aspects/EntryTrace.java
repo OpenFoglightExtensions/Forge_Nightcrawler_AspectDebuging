@@ -2,9 +2,9 @@ package de.dsg.forge.nc.aspectDebugger.aspects;
 
 import com.quest.forge.ui.web.queue.Entry;
 import com.quest.forge.ui.web.queue.SessionQueue;
-import de.dsg.forge.nc.aspectDebugger.SessionRegistry;
 import de.dsg.forge.nc.aspectDebugger.data.EntryExecutionNode;
 import de.dsg.forge.nc.aspectDebugger.data.EntryInfo;
+import de.dsg.forge.nc.aspectDebugger.data.TempNodeTracer;
 import de.dsg.forge.nc.aspectDebugger.data.WebActionEntryInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
