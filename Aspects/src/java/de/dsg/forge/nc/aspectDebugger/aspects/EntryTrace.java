@@ -90,9 +90,10 @@ public class EntryTrace {
 
 
                  if (root.isTreeDone()) {
-                     System.out.println("RootNode:"+root);
-                     System.out.println("------------------");
-                     System.out.println(root.dumpTreeStructure());
+
+                     LOG.debug("RootNode:"+root);
+                     LOG.debug("------------------");
+                     LOG.debug(root.dumpTreeStructure());
 
                      // release the root node and it's entries
                      // because we drop entries early, this is a slightly more complicated call
