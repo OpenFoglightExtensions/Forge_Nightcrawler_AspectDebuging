@@ -1,6 +1,7 @@
-package de.dsg.forge.nc.aspectDebugger.aspects;
+package de.dsg.forge.nc.aspectDebugger.data;
 
 import com.quest.forge.ui.web.queue.Entry;
+import de.dsg.forge.nc.aspectDebugger.aspects.EntryTrace;
 import de.dsg.forge.nc.aspectDebugger.data.EntryExecutionNode;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
