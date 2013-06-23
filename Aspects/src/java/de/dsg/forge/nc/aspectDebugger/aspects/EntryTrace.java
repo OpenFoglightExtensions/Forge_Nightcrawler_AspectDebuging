@@ -94,7 +94,7 @@ public class EntryTrace {
                      LOG.debug("RootNode:"+root);
                      LOG.debug("------------------");
                      LOG.debug(root.dumpTreeStructure());
-                     System.out.println("Node Finished:"+root.toString());
+
 
                      // release the root node and it's entries
                      // because we drop entries early, this is a slightly more complicated call
