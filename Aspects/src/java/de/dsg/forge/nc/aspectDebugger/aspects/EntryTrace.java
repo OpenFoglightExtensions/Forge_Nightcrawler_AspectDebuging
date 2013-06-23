@@ -64,8 +64,6 @@ public class EntryTrace {
             node.stopExecution();
 
 
-            // TODO trace tree and fill in (if parent is available)
-            // TODO make sur eto delete nodes prevent memleaks
 
 
 
@@ -74,9 +72,34 @@ public class EntryTrace {
 
 
              if (entry.getOriginatingEntry() == null) {
-                 System.out.println("RootNode:"+node);
-                 System.out.println("------------------");
-                 System.out.println(node.dumpTreeStructure());
+//                 System.out.println("RootNode:"+node);
+//                 System.out.println("------------------");
+//                 System.out.println(node.dumpTreeStructure());
+
+                 // This is a root node, we can drop the node now because all childs have been added during execution !!!
+                   _tracedNodes.dropNode(entry);
+                    // TODO Add node to session
+
+             } else {
+                 EntryExecutionNode root = node.getRootNode();
+
+
+                 // no longer need to store the entry relationship. Also unlink the node structure from local cache.
+                 // Nodes will still be linked as child nodes in their Root. Which then is linked with the session
+
+                    _tracedNodes.dropNode(entry);
+
+
+                 if (root.isTreeDone()) {
+                     System.out.println("RootNode:"+root);
+                     System.out.println("------------------");
+                     System.out.println(root.dumpTreeStructure());
+
+                     // release the root node and it's entries
+                     // because we drop entries early, this is a slightly more complicated call
+
+                     //_tracedNodes.dropNode(root);  // No longer needed
+                 }
              }
 
 
@@ -87,6 +110,8 @@ public class EntryTrace {
         if (_entryInfos.containsKey(entry)) {
             _entryInfos.remove(entry);
         }
+
+
 
 
         return result;
@@ -161,9 +186,8 @@ public class EntryTrace {
         _tracedNodes.dropNode(arg);
     }
 
-    //TODO: Trace Global Nodes
 
-    //TODO: add details to Execution Tracer
+    //TODO: add More Details for "queue" Nodes details to Execution Tracer
     //TODO: use global Registry to track SessionNodes (within Session Details, implement a max number of Sessions and allow pinned Nodes)
 
 

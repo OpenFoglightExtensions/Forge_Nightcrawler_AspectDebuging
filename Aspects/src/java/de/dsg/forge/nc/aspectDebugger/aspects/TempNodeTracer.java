@@ -6,6 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -46,5 +49,19 @@ public  class TempNodeTracer {
         else {
             return null;
         }
+    }
+
+    public void dropNode(EntryExecutionNode node) {
+
+        LinkedList<Entry> entriesFound = new LinkedList<Entry>();
+
+        for (Map.Entry<Entry,EntryExecutionNode> e : _nodes.entrySet()) {
+            if (e.getValue() == node) {
+                entriesFound.add(e.getKey());
+            }
+        }
+
+        for (Entry e:entriesFound) _nodes.remove(e);
+
     }
 }

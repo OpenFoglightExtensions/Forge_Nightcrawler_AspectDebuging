@@ -74,7 +74,7 @@ public class EntryExecutionNode {
                 .append("  ")
                 .append(isDone() ? getDuration() : -1)
                 .append("ms ]")  ;
-        return sb.toString();
+        return sb.toString().replace('\n',' ');
     }
     @Override
     public String toString() {
@@ -145,5 +145,27 @@ public class EntryExecutionNode {
     }
 
 
+    public EntryExecutionNode getRootNode() {
+        if (isRoot()) {
+            return this;
+        }
+        else {
+            return _parent.getRootNode();
+        }
+    }
 
+    private boolean isRoot() {
+        return (_parent == null);
+    }
+
+    public boolean isTreeDone() {
+        if (!isDone()) return false;
+        for (EntryExecutionNode n :_children) {
+            if (!n.isTreeDone()) return false;
+        }
+
+        return true;
+
+
+    }
 }
