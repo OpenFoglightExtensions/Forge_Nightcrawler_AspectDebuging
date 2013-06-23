@@ -45,7 +45,7 @@ public class EntryExecutionNode {
         return new Timestamp(_start);
     }
     public Timestamp getStopTimestamp() {
-        return new Timestamp(_start);
+        return new Timestamp(_stop);
     }
 
     public void stopExecution() {
@@ -94,9 +94,31 @@ public class EntryExecutionNode {
                 .append(getDuration())
                 .append(getStartTimestamp().toString())
                 .append("-->")
-                .append(getStopTimestamp());
+                .append(getStopTimestamp()).append("\n")
+                .append(" Tree Timing : ").append(getTreeDuration());
+
         return sb.toString();
 
+    }
+
+    private long getTreeDuration() {
+        if (!isTreeDone()) return -1;
+
+        long start = getStartTimestamp().getTime();
+        long stop = getTreeStopTime().getTime();
+        return stop-start;
+    }
+
+    private Timestamp getTreeStopTime() {
+        Timestamp timeCandidate = getStopTimestamp();
+        for (EntryExecutionNode n : _children) {
+            Timestamp temp = n.getTreeStopTime();
+            if (temp.after(timeCandidate)) {
+                timeCandidate = temp;
+            }
+        }
+
+        return timeCandidate;
     }
 
     private int getTreeCount() {
