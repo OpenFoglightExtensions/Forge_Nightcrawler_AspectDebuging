@@ -1,8 +1,12 @@
 package de.dsg.forge.nc.aspectDebugger.aspects;
 
+import com.quest.forge.ui.core.actions.Action;
+
 import com.quest.forge.ui.web.queue.Entry;
 import com.quest.forge.ui.web.queue.SessionQueue;
+import com.quest.wcf.services.performance.ActionInfo;
 import de.dsg.forge.nc.aspectDebugger.SessionRegistry;
+import de.dsg.forge.nc.aspectDebugger.data.ActionEntryInfo;
 import de.dsg.forge.nc.aspectDebugger.data.EntryExecutionNode;
 import de.dsg.forge.nc.aspectDebugger.data.EntryInfo;
 import de.dsg.forge.nc.aspectDebugger.data.WebActionEntryInfo;
@@ -126,7 +130,7 @@ public class EntryTrace {
 
         if (_entryInfos.containsKey(entry)) {
             dumpTxt.append(" Info:")
-                    .append(_entryInfos)
+                    .append(_entryInfos.get(entry))
                     .append("\n");
         }
 
@@ -149,6 +153,16 @@ public class EntryTrace {
 
 
         WebActionEntryInfo info = new WebActionEntryInfo((String) map.get("path"),method);
+        _entryInfos.put(entry,info);
+    }
+
+    // && this(entry) && args(action
+    @After ("execution (com.quest.forge.ui.web.queue.ActionEntry.new(..))&& this(entry) && args(action,..) ")
+    public void fillActionDetails (Entry entry,Action action) {
+
+        ActionEntryInfo info;
+
+        info = new ActionEntryInfo(action);
         _entryInfos.put(entry,info);
     }
 

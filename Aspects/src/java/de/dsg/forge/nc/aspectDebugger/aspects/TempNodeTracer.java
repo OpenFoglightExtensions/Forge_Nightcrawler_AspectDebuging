@@ -24,6 +24,8 @@ public  class TempNodeTracer {
 
 
     public synchronized EntryExecutionNode prepareNode(Entry entry) {
+
+
         EntryExecutionNode n = new EntryExecutionNode(entry);
         _nodes.put(entry,n);
 
@@ -31,7 +33,8 @@ public  class TempNodeTracer {
             EntryExecutionNode parentNode = retrieve(entry.getOriginatingEntry());
 
             if (parentNode == null) {
-                LOG.error("Couldn't find Parent entry : "+parentNode);
+                LOG.warn("Parent node empty, create one now!");
+                parentNode = this.prepareNode(entry.getOriginatingEntry());
             } else parentNode.linkChildNode(n);
 
 
