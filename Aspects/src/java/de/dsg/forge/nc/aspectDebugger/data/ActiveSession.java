@@ -1,6 +1,9 @@
 package de.dsg.forge.nc.aspectDebugger.data;
 
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,6 +14,7 @@ import java.sql.Timestamp;
  */
 public class ActiveSession {
     private final SessionInformation _info;
+    private LinkedList<EntryExecutionNode> _executions;
 
     public SessionInformation getInfo() {
         return _info;
@@ -24,5 +28,25 @@ public class ActiveSession {
         _info = sessionInfo;
 
 
+    }
+
+    public void addExecutionNode(EntryExecutionNode node) {
+        _executions.add(node);
+        checkMaxExecutions();
+    }
+
+    private void checkMaxExecutions() {
+        int max = Config.getSessionExecutionLimit();
+       while (_executions.size() >= max) {
+           _executions.removeFirst();
+       }
+    }
+
+    public List<EntryExecutionNode> getExecutions() {
+       return Collections.unmodifiableList(_executions);
+    }
+
+    public int getExecutionsCount() {
+        return _executions.size();
     }
 }

@@ -68,7 +68,7 @@ public class SessionRegistry {
         return s;
     }
 
-    private ActiveSession getSession(String sessionID) {
+    public  ActiveSession getSession(String sessionID) {
         if (!_sessions.containsKey(sessionID)) {
             LOG.error("Session not found for key :"+sessionID);
             return null;

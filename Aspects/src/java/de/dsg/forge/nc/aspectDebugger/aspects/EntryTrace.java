@@ -4,6 +4,7 @@ import com.quest.forge.ui.core.actions.Action;
 
 import com.quest.forge.ui.web.queue.Entry;
 import com.quest.forge.ui.web.queue.SessionQueue;
+import de.dsg.forge.nc.aspectDebugger.SessionRegistry;
 import de.dsg.forge.nc.aspectDebugger.data.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -70,14 +71,22 @@ public class EntryTrace {
             node.setEntryDetails(getEntryInfoString(entry));
 
 
-             if (entry.getOriginatingEntry() == null) {
+             if (node.isRoot()) {
 //                 System.out.println("RootNode:"+node);
 //                 System.out.println("------------------");
 //                 System.out.println(node.dumpTreeStructure());
 
                  // This is a root node, we can drop the node now because all childs have been added during execution !!!
                    _tracedNodes.dropNode(entry);
-                    // TODO Add node to session
+                 SessionRegistry sessionRegistry = SessionRegistry.getSingleton();
+                 String sessionId = sessionRegistry.mapQueueToSessionId(entry.getEnvironment().getSessionQueue());
+                 ActiveSession session = sessionRegistry.getSession(sessionId);
+                 if (session != null) {
+                    session.addExecutionNode(node);
+                 } else {
+                     LOG.warn("Session not found !!! couldn't add the following node tree");
+                     LOG.warn(node.dumpTreeStructure());
+                 }
 
              } else {
                  EntryExecutionNode root = node.getRootNode();
@@ -94,7 +103,7 @@ public class EntryTrace {
                      LOG.debug("RootNode:"+root);
                      LOG.debug("------------------");
                      LOG.debug(root.dumpTreeStructure());
-
+                     System.out.println(root.dumpTreeStructure());
 
                      // release the root node and it's entries
                      // because we drop entries early, this is a slightly more complicated call
@@ -199,7 +208,7 @@ public class EntryTrace {
 
 
     //TODO: add More Details for "queue" Nodes details to Execution Tracer
-    //TODO: use global Registry to track SessionNodes (within Session Details, implement a max number of Sessions and allow pinned Nodes)
+
 
 
 

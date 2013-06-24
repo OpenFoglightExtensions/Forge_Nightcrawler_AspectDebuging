@@ -176,7 +176,7 @@ public class EntryExecutionNode {
         }
     }
 
-    private boolean isRoot() {
+    public boolean isRoot() {
         return (_parent == null);
     }
 
