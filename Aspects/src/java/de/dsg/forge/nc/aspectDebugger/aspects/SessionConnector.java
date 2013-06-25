@@ -64,7 +64,8 @@ public class SessionConnector {
 
             String username = session.getAuthContext().getUser();
 
-            SessionInformation sessionInfo = new SessionInformation(sessionID, viewID, username, System.currentTimeMillis());
+            SessionInformation sessionInfo = new SessionInformation(sessionID, viewID, username, System.currentTimeMillis(),session);
+
             System.out.println("Info:\n" + sessionInfo);
 
             ActiveSession activeSession = new ActiveSession(sessionInfo);
@@ -88,4 +89,6 @@ public class SessionConnector {
         SessionRegistry.getSingleton().removeSession(session.getId());
         SessionRegistry.getSingleton().deregisterQueue(queue);
     }
+
+
 }
