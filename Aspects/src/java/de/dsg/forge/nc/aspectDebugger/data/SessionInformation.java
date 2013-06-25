@@ -1,5 +1,8 @@
 package de.dsg.forge.nc.aspectDebugger.data;
 
+import com.quest.forge.ui.core.entities.View;
+import com.quest.forge.ui.web.Session;
+
 import java.sql.Timestamp;
 
 /**
@@ -14,6 +17,21 @@ public class SessionInformation {
     private final String _sessionId;
     private final String _mainViewId;
     private final String _username;
+    private final Session _session;
+
+    public Session getSession() {
+        return _session;
+    }
+
+    public SessionInformation(String sessionID, String viewID, String username, long l, Session session) {
+
+        _sessionId = sessionID;
+        _mainViewId = viewID;
+        _username=username;
+        _createdTimestamp = new Timestamp(System.currentTimeMillis());
+        _session = session;
+
+    }
 
     public Timestamp getCreatedTimestamp() {
         return _createdTimestamp;
@@ -31,16 +49,6 @@ public class SessionInformation {
         return _username;
     }
 
-    public SessionInformation(String sessionID, String viewID, String username, long createTime) {
-
-        _sessionId = sessionID;
-        _mainViewId = viewID;
-        _username=username;
-        _createdTimestamp = new Timestamp(createTime);
-
-
-
-    }
 
     @Override
     public String toString() {

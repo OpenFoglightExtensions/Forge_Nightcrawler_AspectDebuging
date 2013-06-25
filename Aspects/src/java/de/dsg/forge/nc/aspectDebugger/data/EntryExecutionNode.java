@@ -71,9 +71,14 @@ public class EntryExecutionNode {
 
         sb.append("[ ")
                 .append((_entryDetailedInfos.equals(""))?_entryInfo:_entryDetailedInfos)
-                .append("  ")
+                .append("]  NTiming: ")
                 .append(isDone() ? getDuration() : -1)
-                .append("ms ]")  ;
+                .append("ms ]")
+                .append(" T: ")
+                .append(isTreeDone() ? "done":"pending")
+                .append("  Timing: ")
+                .append(getTreeDuration() );
+
         return sb.toString().replace('\n',' ');
     }
     @Override
@@ -102,7 +107,6 @@ public class EntryExecutionNode {
     }
 
     private long getTreeDuration() {
-        if (!isTreeDone()) return -1;
 
         long start = getStartTimestamp().getTime();
         long stop = getTreeStopTime().getTime();

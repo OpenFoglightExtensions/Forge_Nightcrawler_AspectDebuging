@@ -28,104 +28,134 @@ public class EntryTrace {
     private HashMap<Entry, EntryInfo> _entryInfos = new HashMap<Entry, EntryInfo>();
     private TempNodeTracer _tracedNodes = new TempNodeTracer();
 
-    @Pointcut("call (* com.quest.forge.ui..WorkerThread.executeEntry(..)) && args (entry)")
+    @Pointcut("execution (* com.quest.forge.ui.web.queue.WorkerThread.executeEntry(..)) && args (entry)")
     public void pc_executeEntry(Entry entry){}
 
     @Pointcut("execution (* com.quest.forge.ui..*Entry.execute()) && this (entry)")
     public void pc_executeEntry2(Entry entry){}
 
 
-    @Around( "pc_executeEntry2(entry)")
-    public Object traceEntryExecution(ProceedingJoinPoint thisJoinPoint ,Entry entry) {
+    @Around( "pc_executeEntry(entry)")
+    public Object traceEntryExecution(ProceedingJoinPoint thisJoinPoint ,Entry entry) throws Throwable {
+        EntryExecutionNode node = null;
+        try {
+            node = preProcessEntryExecution(entry);
+        }  catch (Throwable t ) {
+            LOG.error("Catching  (pre) Aspects Error",t);
+        }
+
+
+
+
+        Object result = null;
+
+        try {
+            result = thisJoinPoint.proceed();
+        }  catch (Throwable t ) {
+            LOG.error("Catching  WCF Error",t);
+            throw(t);
+        }
+
+        try {
+            if (node != null) postProcessEntryExecution(entry, node);
+        }  catch (Throwable t ) {
+            LOG.error("Catching  (Post) Aspects Error",t);
+
+        }
+
+
+        return result;
+
+    }
+
+    private EntryExecutionNode preProcessEntryExecution(Entry entry) {
         // pre call
 
         EntryExecutionNode node;
         node = _tracedNodes.retrieve(entry);
 
         if (node == null) {
-            LOG.error("Node not TRACED (or not found) ... creating one now");
+            LOG.debug("Node not TRACED (or not found) ... creating one now");
             node = _tracedNodes.prepareNode(entry);
-        } else   {
-            node.startExecution();
+            LOG.debug("--" + node);
         }
 
+        node.startExecution();
+        return node;
+    }
 
-        Object result = null;
-        try {
-           result = thisJoinPoint.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
-
+    private void postProcessEntryExecution(Entry entry, EntryExecutionNode node) {
         //post Call
+        if (node == null) {
+            LOG.error("Node not TRACED (or not found) ... FATAL");
+        }
 
         if (node != null){
-            node.stopExecution();
+             node.stopExecution();
+             // Add Entry Information
+             node.setEntryDetails(getEntryInfoString(entry));
 
+              if (node.isRoot()) {
+ //                 System.out.println("RootNode:"+node);
+ //                 System.out.println("------------------");
+ //                 System.out.println(node.dumpTreeStructure());
 
-
-
-
-            // Add Entry Information
-            node.setEntryDetails(getEntryInfoString(entry));
-
-
-             if (node.isRoot()) {
-//                 System.out.println("RootNode:"+node);
-//                 System.out.println("------------------");
-//                 System.out.println(node.dumpTreeStructure());
-
-                 // This is a root node, we can drop the node now because all childs have been added during execution !!!
-                   _tracedNodes.dropNode(entry);
-                 SessionRegistry sessionRegistry = SessionRegistry.getSingleton();
-                 String sessionId = sessionRegistry.mapQueueToSessionId(entry.getEnvironment().getSessionQueue());
-                 ActiveSession session = sessionRegistry.getSession(sessionId);
-                 if (session != null) {
-                    session.addExecutionNode(node);
-                 } else {
-                     LOG.warn("Session not found !!! couldn't add the following node tree");
-                     LOG.warn(node.dumpTreeStructure());
-                 }
-
-             } else {
-                 EntryExecutionNode root = node.getRootNode();
-
-
-                 // no longer need to store the entry relationship. Also unlink the node structure from local cache.
-                 // Nodes will still be linked as child nodes in their Root. Which then is linked with the session
-
+                  // This is a root node, we can drop the node now because all childs have been added during execution !!!
                     _tracedNodes.dropNode(entry);
+                  SessionRegistry sessionRegistry = SessionRegistry.getSingleton();
+                  String sessionId = sessionRegistry.mapQueueToSessionId(entry.getEnvironment().getSessionQueue());
+
+                  // TODO fully implement de.dsg.forge.nc.aspectDebugger.interfaces
+                  ActiveSession session = (ActiveSession) sessionRegistry.getSession(sessionId);
+                  if (session != null) {
+                      if (!session.hasExecution(node)) {
+                          session.addExecutionNode(node);
+                      } else {
+                          LOG.warn ("!!!!!!   Root not registered, already in Session");
+                      }
+
+                  } else {
+                      LOG.warn("Session not found !!! couldn't add the following node tree");
+                      LOG.warn(node.dumpTreeStructure());
+                  }
+              } else {
+
+                  EntryExecutionNode root = node.getRootNode();
+                  // no longer need to store the entry relationship. Also unlink the node structure from local cache.
+                  // Nodes will still be linked as child nodes in their Root. Which then is linked with the session
+
+                  // TODO Check if root is registered
+                  ActiveSession session = SessionRegistry.getSingleton().mapQueueToSession(entry.getEnvironment().getSessionQueue());
+                  if (!session.hasExecution(root)) {
+                    LOG.debug("#####registering Root (wasn't part of Session)");
+                    session.addExecutionNode(root);
+                      LOG.debug("--" + root);
+                  }
+
+                     _tracedNodes.dropNode(entry);
+
+                  if (root.isTreeDone()) {
+
+                      LOG.debug("RootNode:"+root);
+                      LOG.debug("------------------");
+                      LOG.debug(root.dumpTreeStructure());
 
 
-                 if (root.isTreeDone()) {
+                      // release the root node and it's entries
+                      // because we drop entries early, this is a slightly more complicated call
 
-                     LOG.debug("RootNode:"+root);
-                     LOG.debug("------------------");
-                     LOG.debug(root.dumpTreeStructure());
-                     System.out.println(root.dumpTreeStructure());
-
-                     // release the root node and it's entries
-                     // because we drop entries early, this is a slightly more complicated call
-
-                     //_tracedNodes.dropNode(root);  // No longer needed
-                 }
-             }
+                      //_tracedNodes.dropNode(root);  // No longer needed
+                  }
+              }
 
 
 
-        }
+         }
 
         // Finish Execution
         if (_entryInfos.containsKey(entry)) {
             _entryInfos.remove(entry);
         }
-
-
-
-
-        return result;
-
     }
 
     private String getEntryInfoString(Entry entry) {
@@ -185,7 +215,7 @@ public class EntryTrace {
     @Pointcut("call( * java.util.LinkedList.add(..)) && args(arg)")
     void pcListAdd(Entry arg) { }
 
-    @Pointcut("call( * java.util.LinkedList.remove(..)) && args(arg)")
+    @Pointcut("call( * *..*.remove(..)) && args(arg)")
     void pcListRemove(Entry arg) { }
 
 
@@ -203,8 +233,17 @@ public class EntryTrace {
 
     @Before("withincode(* com.quest.forge.ui.web.queue.SessionQueue.append(..)) && pcListRemove(arg) && this(queue)")
     public void entryRemoved(SessionQueue queue,Entry arg) {
+        LOG.error("!!!!!!!!!!!!!!!!!REMOVE ENTRY  :"+arg);
         _tracedNodes.dropNode(arg);
     }
+
+//    @Before("call( * *..*.remove(*..*Entry)) && args(arg)")
+//    public void entryRemovedList(Entry arg) {
+//        LOG.error("1##!!!!!!!!!!!!!!REMOVE ENTRY  :"+arg);
+//        _tracedNodes.dropNode(arg);
+//    }
+
+
 
 
     //TODO: add More Details for "queue" Nodes details to Execution Tracer

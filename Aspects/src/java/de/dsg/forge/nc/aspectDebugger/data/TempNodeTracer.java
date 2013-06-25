@@ -33,9 +33,12 @@ public  class TempNodeTracer {
         if(entry.getOriginatingEntry() != null) {
             EntryExecutionNode parentNode = retrieve(entry.getOriginatingEntry());
 
+            // TODO Maybe we need to link the parent Node to the Session :-)
+
             if (parentNode == null) {
-                LOG.warn("Parent node empty, create one now!");
+                LOG.debug("Parent node empty, create one now!");
                 parentNode = this.prepareNode(entry.getOriginatingEntry());
+                LOG.debug("--"+parentNode);
             } else parentNode.linkChildNode(n);
 
 
