@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Aspects/Aspects.iml" filepath="$PROJECT_DIR$/Aspects/Aspects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ScriptHelper/ScriptHelper.iml" filepath="$PROJECT_DIR$/ScriptHelper/ScriptHelper.iml" />
     </modules>
   </component>
 </project>

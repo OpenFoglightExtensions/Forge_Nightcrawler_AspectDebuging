@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.GroovyFunction&lt;Tuple&lt;String, forge.definitions.View*&gt;, Object&gt;" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[executeScript]]></set>
+	<set property="timestamp">2013-06-25T10:00:22.527Z</set>
+	<set property="access">PRIVATE</set>
+	<set property="parameters">
+		<list>
+			<item><![CDATA[src]]></item>
+			<item><![CDATA[view]]></item>
+		</list>
+	</set>
+</object>

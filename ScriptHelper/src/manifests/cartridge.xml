@@ -1,0 +1,18 @@
+<cartridge xmlns="urn:X-quest.com:forge/cartridge/manifest/6.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="urn:X-quest.com:forge/cartridge/manifest/6.0
+                ../../dist/dtd/cartridge.xsd">
+    <name>@name@</name>
+    <version>@version@</version>
+    <build-id>@buildid@</build-id>
+    <creation-date>@time@</creation-date>
+    <deployment license-required="false"/>
+    <author>@author@</author>
+    <requires>
+        <server version="6.0"/>
+        <cartridge name="forge">
+            <version any="true"/>
+        </cartridge>
+    </requires>
+
+</cartridge>

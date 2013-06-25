@@ -5,6 +5,7 @@
       <maximumHeapSize value="512" />
       <maximumStackSize value="8" />
     </buildFile>
+    <buildFile url="file://$PROJECT_DIR$/ScriptHelper/build.xml" />
   </component>
 </project>
 
