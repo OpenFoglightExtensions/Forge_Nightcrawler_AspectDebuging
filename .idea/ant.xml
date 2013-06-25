@@ -6,6 +6,7 @@
       <maximumStackSize value="8" />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/ScriptHelper/build.xml" />
+    <buildFile url="file://$PROJECT_DIR$/NCDebuggerUI/build.xml" />
   </component>
 </project>
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="forge-api">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Aspects/lib/wcf/forge-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
