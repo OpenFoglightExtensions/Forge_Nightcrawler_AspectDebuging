@@ -2,6 +2,7 @@ package de.dsg.forge.nc.aspectDebugger.aspects;
 
 import com.quest.forge.ui.core.actions.Action;
 
+import com.quest.forge.ui.core.entities.View;
 import com.quest.forge.ui.web.queue.Entry;
 import com.quest.forge.ui.web.queue.SessionQueue;
 import de.dsg.forge.nc.aspectDebugger.SessionRegistry;
@@ -155,6 +156,15 @@ public class EntryTrace {
         // Finish Execution
         if (_entryInfos.containsKey(entry)) {
             _entryInfos.remove(entry);
+        }
+    }
+
+    private void dumpViews(ViewTreeAccessor.ViewsConnection c,String prefix ) {
+        View current = (View) c;
+        System.out.println(prefix + ":"+current.getId()+"  ||| "+current.getType() + "  ("+c);
+
+        for (View c2 : c.getChildViews()) {
+            dumpViews((ViewTreeAccessor.ViewsConnection) c2,prefix+"|----");
         }
     }
 
