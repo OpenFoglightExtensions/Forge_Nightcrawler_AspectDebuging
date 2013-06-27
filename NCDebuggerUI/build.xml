@@ -182,4 +182,15 @@
 
     </target>
 
+    <target name="exportNamespacesForge" depends="init">
+
+        <delete file="${basedir}//tmp/namespaces.zip" failonerror="true"></delete>
+        <fglcmd command="util:exportNamespaces -file ${basedir}/tmp/namespaces.zip -cartridge forge " server="${foglight.server}"/>
+
+        <delete dir="${basedir}/namespaces" includes="**/*" failonerror="false"></delete>
+        <unzip dest="${basedir}/namespaces" src="${basedir}/tmp/namespaces.zip" overwrite="true"   />
+
+
+    </target>
+
 </project>
