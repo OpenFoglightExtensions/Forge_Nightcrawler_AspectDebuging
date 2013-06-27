@@ -6,6 +6,7 @@ import com.quest.forge.ui.core.entities.View;
 import com.quest.forge.ui.web.queue.Entry;
 import com.quest.forge.ui.web.queue.SessionQueue;
 import de.dsg.forge.nc.aspectDebugger.SessionRegistry;
+import de.dsg.forge.nc.aspectDebugger.ViewTreeAccessor;
 import de.dsg.forge.nc.aspectDebugger.data.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -140,7 +141,6 @@ public class EntryTrace {
                       LOG.debug("RootNode:"+root);
                       LOG.debug("------------------");
                       LOG.debug(root.dumpTreeStructure());
-
 
                       // release the root node and it's entries
                       // because we drop entries early, this is a slightly more complicated call

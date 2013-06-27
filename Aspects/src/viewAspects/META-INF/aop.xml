@@ -1,10 +1,7 @@
 <aspectj>
     <aspects>
        <!-- <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.PlainTracer"/>-->
-        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.SessionConnector"/>
-        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.EntryTrace"/>
-        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.RegistryConnector"/>
-
+        <aspect name="de.dsg.forge.nc.aspectDebugger.ViewTreeAccessor"/>
     </aspects>
                      <!-- -verbose -showWeaveInfo -->
     <weaver options="-verbose -showWeaveInfo">

@@ -122,21 +122,21 @@
           </jar>
     </target>
 
-    <target name="hackJar" description="BAD Hack to bypass Classloading" depends="init">
+    <target name="viewAspectJar" description="BAD Hack to bypass Classloading" depends="init">
         <javac target="1.7" debug="true" description="Compile Annotated Aspects" verbose="false" destdir="${build.dir}/classesHack">
-            <src path="${basedir}/src/CLHack"/>
+            <src path="${basedir}/src/viewAspects"/>
             <classpath refid="build.path"/>
         </javac>
 
 
-        <jar destfile="${dist.dir}/NCAspectDebugger_hack.jar" >
+        <jar destfile="${dist.dir}/NCAspectDebugger_viewAspects.jar" >
             <fileset dir="${build.dir}/classesHack" includes="**/*"/>
-
+            <fileset dir="${basedir}/src/viewAspects" includes="**/aop.xml"/>
         </jar>
 
     </target>
 
-    <target name="aspectsCompile" depends="init,hackJar">
+    <target name="aspectsCompile" depends="init,viewAspectJar">
         <javac target="1.7" debug="true" description="Compile Annotated Aspects" verbose="false" destdir="${build.dir}/classes">
             <src path="${src.dir}"/>
              <classpath refid="build.path"/>
@@ -164,9 +164,9 @@
 
     </target>
     -->
-    <target name="enableVagrant" depends="aspectJar"                     description="Start Tomcat with Aspects">
+    <target name="enableVagrant" depends="aspectJar, viewAspectJar"                     description="Start Tomcat with Aspects">
         <copy file="${dist.dir}/NCAspectDebugger_aspects.jar" todir="${vagrantEnv}"/>
-        <copy file="${dist.dir}/NCAspectDebugger_hack.jar" todir="${vagrantEnv}"/>
+        <copy file="${dist.dir}/NCAspectDebugger_viewAspects.jar" todir="${vagrantEnv}"/>
 
     </target>
 

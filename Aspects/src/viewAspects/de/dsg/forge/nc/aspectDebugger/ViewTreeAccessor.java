@@ -1,4 +1,4 @@
-package de.dsg.forge.nc.aspectDebugger.aspects;
+package de.dsg.forge.nc.aspectDebugger;
 
 
 import com.quest.forge.data.Type;
@@ -69,6 +69,7 @@ public class ViewTreeAccessor {
 
         @Override
         public void setXXXRootView(View v) {
+            System.out.println("################## ---> ROOT");
             _view = v;
         }
 
@@ -80,7 +81,7 @@ public class ViewTreeAccessor {
 
         @Override
         public void setXXXCurrentIteratorMap(Map<String, View> vMap) {
-
+            System.out.println("################## ITERATOR");
             _iteratorMap = vMap;
         }
 
