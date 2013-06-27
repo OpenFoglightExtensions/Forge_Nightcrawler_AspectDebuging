@@ -145,7 +145,7 @@
 		]]></groovy>
 
         <tstamp>
-            <format property="touch.time" pattern="yyyy-MM-MM HH:mm:ss-SSSS"  />
+            <format property="touch.time" pattern="yyyy-MM-MM HH:mm:ss-0000"  />
         </tstamp>
 
         <delete file="${basedir}/tmp/cartridge.xml" failonerror="false"/>
