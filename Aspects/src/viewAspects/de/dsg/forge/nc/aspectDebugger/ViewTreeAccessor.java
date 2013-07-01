@@ -11,6 +11,7 @@ import com.quest.forge.ui.views.atomic.iterator.Iterator;
 import com.quest.forge.ui.views.atomic.switchables.BaseSwitchable;
 import com.quest.forge.ui.views.base.BaseView;
 import com.quest.forge.ui.views.custom.BaseCustomView;
+import com.quest.forge.ui.web.Session;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -37,6 +38,7 @@ public class ViewTreeAccessor {
         void setXXXCurrentView(View v);
 
         void setXXXCurrentIteratorMap(Map<String, View> vMap);
+
     }
 
     public static class ViewsConnectionImpl implements ViewsConnection {
@@ -69,8 +71,7 @@ public class ViewTreeAccessor {
 
         @Override
         public void setXXXRootView(View v) {
-            System.out.println("################## ---> ROOT");
-            _view = v;
+             _view = v;
         }
 
         @Override
@@ -81,9 +82,10 @@ public class ViewTreeAccessor {
 
         @Override
         public void setXXXCurrentIteratorMap(Map<String, View> vMap) {
-            System.out.println("################## ITERATOR");
             _iteratorMap = vMap;
         }
+
+
 
         private Collection<View> getChildViews(BaseView view) {
             return new LinkedList<View>();
