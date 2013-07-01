@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="HelpDisplay" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
-	<set property="timestamp">2013-06-25T11:43:44.321Z</set>
+	<set property="timestamp">2013-06-27T17:55:02.604Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -23,7 +23,7 @@
 							<item>
 								<object>
 									<set property="propertyName"><![CDATA[text]]></set>
-									<set property="script"><![CDATA[toHelp(helpValue)]]></set>
+									<set property="script"><![CDATA[convertToHelp(helpValue)]]></set>
 								</object>
 							</item>
 						</list>
