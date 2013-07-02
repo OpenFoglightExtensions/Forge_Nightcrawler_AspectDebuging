@@ -4,10 +4,11 @@
 	<import>forge.ui.core.Label</import>
 	<import>forge.ui.views.treetable.NodeDescriptor</import>
 	<import>forge.ui.views.treetable.ParentNodeStyle</import>
+	<import>ncdebugger.RECYCLE</import>
 	<import>ncdebugger.ViewWrapper</import>
 	<import>ncdebugger.getSessionsInfo</import>
 	<import>ncdebugger.wrapSessionMain</import>
-	<set property="timestamp">2013-07-02T13:47:55.164Z</set>
+	<set property="timestamp">2013-07-02T14:09:17.380Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -30,7 +31,7 @@
 							<item>
 								<object>
 									<set property="propertyName"><![CDATA[content]]></set>
-									<set property="script"><![CDATA[renderText("refresh",NORMAL)]]></set>
+									<set property="script"><![CDATA[renderIcon(RECYCLE,16,"NORMAL")]]></set>
 								</object>
 							</item>
 						</list>
@@ -112,9 +113,9 @@ weight:1,
 weight:0,
         header: renderText("", NORMAL),
 sizing: {
-minimum:70,
+minimum:45,
 weight:0,
-width:70
+width:45
 }
     }
 
@@ -135,32 +136,10 @@ width:70
 					</set>
 				</object>
 			</item>
-			<item>
-				<object>
-					<set property="name"><![CDATA[label1]]></set>
-					<set property="viewDefinition">Label</set>
-					<set property="initialExpressions">
-						<list>
-							<item>
-								<object>
-									<set property="propertyName"><![CDATA[content]]></set>
-									<set property="script"><![CDATA[renderText("HHH:"+wrapSessionMain(getSessionsInfo(this)[0].session).name,NORMAL)]]></set>
-								</object>
-							</item>
-						</list>
-					</set>
-				</object>
-			</item>
 		</list>
 	</set>
 	<set property="listeners">
 		<list>
-			<item>
-				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[label1.content = renderText(view,NORMAL);]]></set>
-					<set property="eventName"><![CDATA[viewSelected]]></set>
-				</object>
-			</item>
 			<item>
 				<object type="forge.definitions.EventListener">
 					<set property="script"><![CDATA[eval trComponents.root;]]></set>
@@ -176,14 +155,14 @@ width:70
 			</item>
 			<item>
 				<object type="forge.definitions.PropertyChangeListener">
-					<set property="script"><![CDATA[eval trComponents.root;]]></set>
-					<set property="propertyName"><![CDATA[session]]></set>
+					<set property="script"><![CDATA[trComponents.root = [rootNode];]]></set>
+					<set property="propertyName"><![CDATA[rootNode]]></set>
 				</object>
 			</item>
 			<item>
 				<object type="forge.definitions.PropertyChangeListener">
-					<set property="script"><![CDATA[trComponents.root = [rootNode];]]></set>
-					<set property="propertyName"><![CDATA[rootNode]]></set>
+					<set property="script"><![CDATA[eval trComponents.root;]]></set>
+					<set property="propertyName"><![CDATA[session]]></set>
 				</object>
 			</item>
 		</list>
@@ -231,16 +210,6 @@ width:70
 								</object>
 							</set>
 							<set property="name"><![CDATA[trComponents]]></set>
-						</object>
-					</item>
-					<item>
-						<object type="forge.definitions.ChildRef">
-							<set property="constraint">
-								<object type="forge.definitions.BoxLayoutConstraint">
-									<set property="alignment">STRETCH</set>
-								</object>
-							</set>
-							<set property="name"><![CDATA[label1]]></set>
 						</object>
 					</item>
 				</list>
