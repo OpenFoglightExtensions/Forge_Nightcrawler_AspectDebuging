@@ -170,11 +170,26 @@
 
     </target>
 
-    <target name="startTomcat" depends="aspectJar"                     description="Start Tomcat with Aspects">
+    <target name="prepareTomcat" depends="aspectJar" >
 
        <copy file="${dist.dir}/NCAspectDebugger_aspects.jar" todir="${tomcat.home}/webapps/portal/WEB-INF/lib"/>
        <copy file="${basedir}/lib/aspectj/aspectjrt.jar" todir="${tomcat.home}/webapps/portal/WEB-INF/lib"/>
 
+        <ant dir="${basedir}/../NCDebuggerUI/" antfile="${basedir}/../NCDebuggerUI/build.xml"
+             usenativebasedir="true" inheritall="false">
+
+            <target name="clean"/>
+            <target name="car"/>
+        </ant>
+
+        <mkdir dir="${tomcat.home}/webapps/portal/WEB-INF/wcf/cartridges/NCDebugUI" />
+        <delete dir="${tomcat.home}/webapps/portal/WEB-INF/wcf/cartridges/NCDebugUI" failonerror="false"/>
+        <unzip src="${basedir}/../NCDebuggerUI/dist/NCDebugUI-1_0_0.car" dest="${tomcat.home}/webapps/portal/WEB-INF/wcf/cartridges/NCDebugUI">
+
+        </unzip>
+    </target>
+
+    <target name="startTomcat" depends="prepareTomcat"                     description="Start Tomcat with Aspects">
         <exec dir="${tomcat.home}" spawn="true" executable="${tomcat.command}" >
             <arg value="jpda"/>
             <arg value="start"/>
