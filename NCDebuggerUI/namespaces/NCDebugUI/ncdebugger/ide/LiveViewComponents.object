@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="LiveViewComponents" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.Button</import>
+	<import>forge.ui.core.Label</import>
+	<import>forge.ui.views.treetable.NodeDescriptor</import>
+	<import>forge.ui.views.treetable.ParentNodeStyle</import>
+	<import>ncdebugger.ViewWrapper</import>
+	<import>ncdebugger.getSessionsInfo</import>
+	<import>ncdebugger.wrapSessionMain</import>
+	<set property="timestamp">2013-07-02T11:13:17.053Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[session]]></set>
+					<set property="script"><![CDATA[getSessionsInfo(this)[0]]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[btnRefresh]]></set>
+					<set property="viewDefinition">Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("refresh",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[trComponents]]></set>
+					<set property="viewDefinition">forge.ui.core.TreeTable</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[root]]></set>
+									<set property="script"><![CDATA[[wrapSessionMain(getSessionsInfo(this)[0].session),"TESTER"]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[nodeDescriptors]]></set>
+									<set property="script"><![CDATA[[new NodeDescriptor<ViewWrapper> {
+        parentNodeStyleClosure: node-> {
+		return ParentNodeStyle.PARENT_IF_HAS_CHILDREN;
+},
+        childrenClosure: node ->node.childViews,
+        columnsData: [{
+            id: "h0",
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(node.id, NORMAL);
+                return view;
+            }
+       },{
+            id: "type",
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(node.name, NORMAL);
+		
+                return view;
+            }
+       
+       }
+,{
+            id: "btn",
+            cellViewSetup: (treeTable, cellId, node) -> {
+                ViewButton vv = treeTable.createCellView(cellId);
+                vv.node = node;
+		
+              return vv;
+            }
+       
+       }
+	]
+    }
+]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[columnsStructure]]></set>
+									<set property="script"><![CDATA[[
+{
+        id: "h0",
+weight:0,
+sizing: {
+minimum:90,
+weight:0,
+width:150
+},
+        header: renderText("View", NORMAL)
+    },{
+        id: "type",
+weight:1,
+        header: renderText("Type", NORMAL)
+    }
+,{
+        id: "btn",
+weight:0,
+        header: renderText("", NORMAL),
+sizing: {
+minimum:20,
+weight:0,
+width:20
+}
+    }
+
+]]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[root]]></set>
+									<set property="script"><![CDATA[[wrapSessionMain(session.session)]]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[label1]]></set>
+					<set property="viewDefinition">Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("HHH:"+wrapSessionMain(getSessionsInfo(this)[0].session).name,NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[label1.content = renderText(view,NORMAL);]]></set>
+					<set property="eventName"><![CDATA[viewSelected]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[eval trComponents.root;]]></set>
+					<set property="propertyName"><![CDATA[session]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[emit viewSelected(nodeShown);]]></set>
+					<set property="propertyName"><![CDATA[nodeShown]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="margins">
+														<object>
+															<set property="bottom">10</set>
+														</object>
+													</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[btnRefresh]]></set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[trComponents]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[label1]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="session" type="ncdebugger.SessionInfo"/>
+	<property name="nodeShown" type="forge.definitions.View"/>
+	<event name="viewSelected">
+		<parameter name="view" type="forge.definitions.View"/>
+	</event>
+</type>

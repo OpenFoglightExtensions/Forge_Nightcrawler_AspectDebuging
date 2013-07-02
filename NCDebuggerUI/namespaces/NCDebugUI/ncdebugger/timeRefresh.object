@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.GroovyFunction&lt;Tuple, String&gt;" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[timeRefresh]]></set>
+	<set property="timestamp">2013-07-01T15:35:36.834Z</set>
+	<set property="access">PRIVATE</set>
+</object>
