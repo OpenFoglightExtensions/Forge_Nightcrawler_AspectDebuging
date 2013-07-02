@@ -5,4 +5,5 @@
 	<property name="username" type="String"/>
 	<property name="mainView" type="String"/>
 	<property name="session" type="Object"/>
+	<property name="lastExecution" type="forge.monitoring.core.Timestamp"/>
 </type>

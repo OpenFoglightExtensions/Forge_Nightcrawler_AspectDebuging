@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="ScriptExecutor" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
-	<set property="timestamp">2013-06-27T20:04:59.194Z</set>
+	<set property="timestamp">2013-07-02T13:27:05.040Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -100,7 +100,7 @@
 		<list>
 			<item>
 				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[result = execScript(src,execute);]]></set>
+					<set property="script"><![CDATA[result = execScript(src,this,null);]]></set>
 					<set property="eventName"><![CDATA[clicked]]></set>
 					<set property="propertyName"><![CDATA[execute]]></set>
 				</object>

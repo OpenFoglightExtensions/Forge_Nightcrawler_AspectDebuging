@@ -4,7 +4,7 @@
 	<import>ncdebugger.DlgSessions</import>
 	<import>ncdebugger.SessionInfo</import>
 	<import>ncdebugger.getSessionsInfo</import>
-	<set property="timestamp">2013-07-02T12:57:46.464Z</set>
+	<set property="timestamp">2013-07-02T13:17:46.522Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -210,6 +210,7 @@ eval lblCurrentSession.content;]]></set>
 													</set>
 													<set property="alignment">STRETCH</set>
 													<set property="weight">1</set>
+													<set property="maximumWidth">640</set>
 													<set property="margins">
 														<object>
 															<set property="left">5</set>

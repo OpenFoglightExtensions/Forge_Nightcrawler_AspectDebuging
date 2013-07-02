@@ -7,7 +7,7 @@
 	<import>forge.ui.views.dialog.DialogButton</import>
 	<import>forge.ui.views.table.Column</import>
 	<import>forge.ui.views.table.LargeDataColumn</import>
-	<set property="timestamp">2013-07-02T12:20:35.552Z</set>
+	<set property="timestamp">2013-07-02T13:14:50.239Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -98,6 +98,21 @@ sortKeys: [
         cellViewSetup: (table, cellId, row) -> {
             Label view = table.createCellView(cellId);
             view.content = renderText(row.createdTimestamp, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<SessionInfo> {
+        id: "executionTime",
+   sizing : {
+		width:140
+	},     
+sortKeys: [
+            {valueClosure: item -> item.lastExecution}
+        ],
+	header: renderText("last Executed", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.lastExecution, NORMAL);
             return view;
         }
     }

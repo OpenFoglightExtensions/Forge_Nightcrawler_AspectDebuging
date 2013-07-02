@@ -22,6 +22,8 @@ ScriptInfo info = new ScriptInfo(namespace, "dynamicScript",
 
 Bindings bindings = new SimpleBindings();
 bindings.put("_view",view);
+bindings.put("_obj",obj);
+
 
 
 
