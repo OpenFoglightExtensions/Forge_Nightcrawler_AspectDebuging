@@ -7,7 +7,7 @@
 	<import>ncdebugger.ViewWrapper</import>
 	<import>ncdebugger.getSessionsInfo</import>
 	<import>ncdebugger.wrapSessionMain</import>
-	<set property="timestamp">2013-07-02T11:13:17.053Z</set>
+	<set property="timestamp">2013-07-02T12:58:52.445Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -171,6 +171,13 @@ width:20
 				<object type="forge.definitions.PropertyChangeListener">
 					<set property="script"><![CDATA[emit viewSelected(nodeShown);]]></set>
 					<set property="propertyName"><![CDATA[nodeShown]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[eval trComponents.root;]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[btnRefresh]]></set>
 				</object>
 			</item>
 		</list>

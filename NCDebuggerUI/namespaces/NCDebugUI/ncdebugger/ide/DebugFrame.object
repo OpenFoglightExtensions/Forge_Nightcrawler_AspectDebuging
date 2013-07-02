@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="DebugFrame" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
 	<import>forge.ide.frame.createContainerModel</import>
+	<import>ncdebugger.DlgSessions</import>
+	<import>ncdebugger.SessionInfo</import>
 	<import>ncdebugger.getSessionsInfo</import>
-	<set property="timestamp">2013-07-02T11:14:37.311Z</set>
+	<set property="timestamp">2013-07-02T12:57:46.464Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -22,22 +24,6 @@
 	</set>
 	<set property="childSpecs">
 		<list>
-			<item>
-				<object>
-					<set property="name"><![CDATA[btnSessionsRefresh]]></set>
-					<set property="viewDefinition">forge.ui.core.Button</set>
-					<set property="initialExpressions">
-						<list>
-							<item>
-								<object>
-									<set property="propertyName"><![CDATA[content]]></set>
-									<set property="script"><![CDATA[renderText("refresh Sessions",NORMAL)]]></set>
-								</object>
-							</item>
-						</list>
-					</set>
-				</object>
-			</item>
 			<item>
 				<object>
 					<set property="name"><![CDATA[components]]></set>
@@ -72,30 +58,32 @@
 			</item>
 			<item>
 				<object>
-					<set property="name"><![CDATA[sessionPicker]]></set>
-					<set property="viewDefinition">forge.ui.core.DropDown&lt;ncdebugger.SessionInfo&gt;</set>
-					<set property="initialExpressions">
-						<list>
-							<item>
-								<object>
-									<set property="propertyName"><![CDATA[textClosure]]></set>
-									<set property="script"><![CDATA[session -> "("+session.username+") "+session.mainView+ "   started :"+session.createdTimestamp]]></set>
-								</object>
-							</item>
-							<item>
-								<object>
-									<set property="propertyName"><![CDATA[items]]></set>
-									<set property="script"><![CDATA[getSessionsInfo(this)]]></set>
-								</object>
-							</item>
-						</list>
-					</set>
+					<set property="name"><![CDATA[lblCurrentSession]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
 					<set property="registeredExpressions">
 						<list>
 							<item>
 								<object>
-									<set property="propertyName"><![CDATA[items]]></set>
-									<set property="script"><![CDATA[sessions]]></set>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[
+renderText("Current Session: "+ "("+currentSession.username+") " +currentSession.mainView+ "   started :"+currentSession.createdTimestamp,NORMAL)
+]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[btnSessionsSelect]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("change Session",NORMAL)]]></set>
 								</object>
 							</item>
 						</list>
@@ -108,28 +96,19 @@
 		<list>
 			<item>
 				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[sessions = getSessionsInfo(this);]]></set>
+					<set property="script"><![CDATA[SessionChooser ses = createPopUp();
+ses.debugFrame = this;
+
+ses.show();]]></set>
 					<set property="eventName"><![CDATA[clicked]]></set>
-					<set property="propertyName"><![CDATA[btnSessionsRefresh]]></set>
+					<set property="propertyName"><![CDATA[btnSessionsSelect]]></set>
 				</object>
 			</item>
 			<item>
 				<object type="forge.definitions.PropertyChangeListener">
-					<set property="script"><![CDATA[eval components.session;]]></set>
+					<set property="script"><![CDATA[components.session = currentSession;
+eval lblCurrentSession.content;]]></set>
 					<set property="propertyName"><![CDATA[currentSession]]></set>
-				</object>
-			</item>
-			<item>
-				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[currentSession = item;]]></set>
-					<set property="eventName"><![CDATA[itemSelected]]></set>
-					<set property="propertyName"><![CDATA[sessionPicker]]></set>
-				</object>
-			</item>
-			<item>
-				<object type="forge.definitions.PropertyChangeListener">
-					<set property="script"><![CDATA[eval sessionPicker.items;]]></set>
-					<set property="propertyName"><![CDATA[sessions]]></set>
 				</object>
 			</item>
 			<item>
@@ -176,7 +155,7 @@
 													<set property="alignment">MIDDLE</set>
 												</object>
 											</set>
-											<set property="name"><![CDATA[sessionPicker]]></set>
+											<set property="name"><![CDATA[lblCurrentSession]]></set>
 										</object>
 									</item>
 									<item>
@@ -190,7 +169,7 @@
 													</set>
 												</object>
 											</set>
-											<set property="name"><![CDATA[btnSessionsRefresh]]></set>
+											<set property="name"><![CDATA[btnSessionsSelect]]></set>
 										</object>
 									</item>
 									<item>
@@ -221,9 +200,22 @@
 										<object type="forge.definitions.ChildRef">
 											<set property="constraint">
 												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="borderInsets">
+														<object>
+															<set property="left">5</set>
+															<set property="right">5</set>
+															<set property="top">5</set>
+															<set property="bottom">5</set>
+														</object>
+													</set>
 													<set property="alignment">STRETCH</set>
-													<set property="weight">0</set>
-													<set property="minimumWidth">640</set>
+													<set property="weight">1</set>
+													<set property="margins">
+														<object>
+															<set property="left">5</set>
+															<set property="right">5</set>
+														</object>
+													</set>
 												</object>
 											</set>
 											<set property="name"><![CDATA[components]]></set>
@@ -250,6 +242,6 @@
 			</set>
 		</object>
 	</set>
-	<property name="currentSession" type="ncdebugger.SessionInfo"/>
-	<property name="sessions" type="List&lt;ncdebugger.SessionInfo&gt;"/>
+	<property name="currentSession" type="SessionInfo"/>
+	<property name="sessions" type="List&lt;SessionInfo&gt;"/>
 </type>
