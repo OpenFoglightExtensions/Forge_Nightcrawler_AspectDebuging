@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ExecutionEntry" extends="Writable" xmlns="urn:quest-com:forge-types-1-0">
+	<property name="startTimestamp" type="forge.monitoring.core.Timestamp"/>
+	<property name="stopTimestamp" type="forge.monitoring.core.Timestamp"/>
+	<property name="duration" type="Long"/>
+	<property name="childrenCount" type="Long"/>
+	<property name="totalChildrenCount" type="Long"/>
+	<property name="totalDuration" type="Long"/>
+	<property name="totalStopTimestamp" type="forge.monitoring.core.Timestamp"/>
+	<property name="executionNode" type="Object"/>
+	<property name="info" type="String"/>
+</type>

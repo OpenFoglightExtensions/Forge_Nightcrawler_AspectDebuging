@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="NCDebuggingTile" extends="forge.ui.main.ChooserTile" xmlns="urn:quest-com:forge-types-1-0">
-	<set property="timestamp">2013-07-02T08:16:32.922Z</set>
+	<set property="timestamp">2013-07-02T21:30:34.138Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -134,26 +134,8 @@
 			</item>
 		</list>
 	</set>
-	<set property="trackers">
-		<list>
-			<item>
-				<object type="forge.definitions.FunctionTracker">
-					<set property="name"><![CDATA[timer]]></set>
-					<set property="userCancellable">false</set>
-					<set property="systemCancellable">false</set>
-					<set property="function">obj|ncdebugger.timeRefresh</set>
-				</object>
-			</item>
-		</list>
-	</set>
 	<set property="listeners">
 		<list>
-			<item>
-				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[timer.start([]);]]></set>
-					<set property="eventName"><![CDATA[initialized]]></set>
-				</object>
-			</item>
 			<item>
 				<object type="forge.definitions.EventListener">
 					<set property="script"><![CDATA[openWebPage("/view/ncdebugger.script.ScriptExecutor");]]></set>

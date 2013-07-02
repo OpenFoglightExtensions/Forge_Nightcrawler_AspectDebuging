@@ -7,8 +7,9 @@
 	<import>ncdebugger.RECYCLE</import>
 	<import>ncdebugger.ViewWrapper</import>
 	<import>ncdebugger.getSessionsInfo</import>
+	<import>ncdebugger.wrapChildViews</import>
 	<import>ncdebugger.wrapSessionMain</import>
-	<set property="timestamp">2013-07-02T14:09:17.380Z</set>
+	<set property="timestamp">2013-07-02T21:52:49.165Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -57,7 +58,7 @@
         parentNodeStyleClosure: node-> {
 		return ParentNodeStyle.PARENT_IF_HAS_CHILDREN;
 },
-        childrenClosure: node ->node.childViews,
+        childrenClosure: node ->wrapChildViews(node.view),
         columnsData: [{
             id: "h0",
             cellViewSetup: (treeTable, cellId, node) -> {

@@ -3,9 +3,5 @@
 	<property name="name" type="String"/>
 	<property name="id" type="String"/>
 	<property name="view" type="Object"/>
-	<property name="childViews" type="List&lt;ViewWrapper&gt;">
-		<set property="access">READ_ONLY</set>
-		<getter><![CDATA[return wrapChildViews(view);]]></getter>
-	</property>
 	<property name="viewType" type="forge.definitions.View"/>
 </type>

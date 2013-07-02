@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ExecutionsSummary" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.Label</import>
+	<import>forge.ui.views.table.LargeDataColumn</import>
+	<import>ncdebugger.ExecutionEntry</import>
+	<import>ncdebugger.wrapCurrentExecutions</import>
+	<set property="timestamp">2013-07-02T15:04:21.808Z</set>
+	<set property="state">VALID</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[tblExecutions]]></set>
+					<set property="viewDefinition">forge.ui.core.LargeTable&lt;ExecutionEntry&gt;</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[columns]]></set>
+									<set property="script"><![CDATA[[
+    new LargeDataColumn<ExecutionEntry> {
+        id: "c1",
+
+sizing : {
+		weight:2
+	},
+        header: renderText("Info", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.info, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<ExecutionEntry> {
+        id: "time",
+   sizing : {
+		width:140
+	},     
+sortKeys: [
+            {valueClosure: item -> item.startTimestamp}
+        ],
+	header: renderText("Created", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.startTimestamp, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<ExecutionEntry> {
+        id: "executionTime",
+   sizing : {
+		width:140
+	},     
+sortKeys: [
+            {valueClosure: item -> item.totalDuration}
+        ],
+	header: renderText("last Executed", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.totalDuration, NORMAL);
+            return view;
+        }
+    }
+]]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[tblExecutions.rows = wrapCurrentExecutions(currentSession);]]></set>
+					<set property="propertyName"><![CDATA[currentSession]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ChildRef">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="name"><![CDATA[tblExecutions]]></set>
+		</object>
+	</set>
+	<property name="currentSession" type="ncdebugger.SessionInfo"/>
+</type>

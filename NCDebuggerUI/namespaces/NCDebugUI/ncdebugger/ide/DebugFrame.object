@@ -4,7 +4,7 @@
 	<import>ncdebugger.DlgSessions</import>
 	<import>ncdebugger.SessionInfo</import>
 	<import>ncdebugger.getSessionsInfo</import>
-	<set property="timestamp">2013-07-02T13:17:46.522Z</set>
+	<set property="timestamp">2013-07-02T15:03:42.338Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -90,6 +90,12 @@ renderText("Current Session: "+ "("+currentSession.username+") " +currentSession
 					</set>
 				</object>
 			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[executions]]></set>
+					<set property="viewDefinition">ExecutionsSummary</set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="listeners">
@@ -105,17 +111,19 @@ ses.show();]]></set>
 				</object>
 			</item>
 			<item>
-				<object type="forge.definitions.PropertyChangeListener">
-					<set property="script"><![CDATA[components.session = currentSession;
-eval lblCurrentSession.content;]]></set>
-					<set property="propertyName"><![CDATA[currentSession]]></set>
-				</object>
-			</item>
-			<item>
 				<object type="forge.definitions.EventListener">
 					<set property="script"><![CDATA[ideEditor.definition = view;]]></set>
 					<set property="eventName"><![CDATA[viewSelected]]></set>
 					<set property="propertyName"><![CDATA[components]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[components.session = currentSession;
+eval lblCurrentSession.content;
+executions.currentSession = currentSession;
+]]></set>
+					<set property="propertyName"><![CDATA[currentSession]]></set>
 				</object>
 			</item>
 		</list>
@@ -197,7 +205,7 @@ eval lblCurrentSession.content;]]></set>
 							<set property="children">
 								<list>
 									<item>
-										<object type="forge.definitions.ChildRef">
+										<object type="forge.definitions.ColumnLayout">
 											<set property="constraint">
 												<object type="forge.definitions.BoxLayoutConstraint">
 													<set property="borderInsets">
@@ -210,17 +218,44 @@ eval lblCurrentSession.content;]]></set>
 													</set>
 													<set property="alignment">STRETCH</set>
 													<set property="weight">1</set>
-													<set property="maximumWidth">640</set>
-													<set property="margins">
-														<object>
-															<set property="left">5</set>
-															<set property="right">5</set>
-														</object>
-													</set>
+													<set property="maximumWidth">650</set>
 												</object>
 											</set>
-											<set property="name"><![CDATA[components]]></set>
-											<set property="style">LIGHT_BORDER</set>
+											<set property="children">
+												<list>
+													<item>
+														<object type="forge.definitions.ChildRef">
+															<set property="constraint">
+																<object type="forge.definitions.BoxLayoutConstraint">
+																	<set property="alignment">STRETCH</set>
+																</object>
+															</set>
+															<set property="name"><![CDATA[components]]></set>
+														</object>
+													</item>
+													<item>
+														<object type="forge.definitions.Spacer">
+															<set property="constraint">
+																<object type="forge.definitions.BoxLayoutConstraint">
+																	<set property="fixedHeight">1</set>
+																	<set property="alignment">STRETCH</set>
+																</object>
+															</set>
+														</object>
+													</item>
+													<item>
+														<object type="forge.definitions.ChildRef">
+															<set property="constraint">
+																<object type="forge.definitions.BoxLayoutConstraint">
+																	<set property="alignment">STRETCH</set>
+																	<set property="weight">1</set>
+																</object>
+															</set>
+															<set property="name"><![CDATA[executions]]></set>
+														</object>
+													</item>
+												</list>
+											</set>
 										</object>
 									</item>
 									<item>

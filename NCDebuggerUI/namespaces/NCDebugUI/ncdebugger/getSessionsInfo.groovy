@@ -20,7 +20,10 @@ sessionInfo.set("sessionId",si.getSessionId())
 sessionInfo.set("createdTimestamp",si.getCreatedTimestamp())
 sessionInfo.set("mainView",si.getMainViewId() )
 sessionInfo.set("session",si.getSession())
-sessionInfo.set("lastExecution",session.executions[-1].getStartTimestamp())
+sessionInfo.set("activeSession",session)
+
+sessionInfo.set("lastExecution",null)
+if (session.executions.size() >0)  sessionInfo.set("lastExecution",session.executions.last().getStartTimestamp())
 
 return sessionInfo 
 }

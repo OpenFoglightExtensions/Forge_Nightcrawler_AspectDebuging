@@ -6,4 +6,5 @@
 	<property name="mainView" type="String"/>
 	<property name="session" type="Object"/>
 	<property name="lastExecution" type="forge.monitoring.core.Timestamp"/>
+	<property name="activeSession" type="Object"/>
 </type>

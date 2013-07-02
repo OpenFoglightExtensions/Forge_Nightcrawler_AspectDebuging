@@ -66,6 +66,11 @@ public class EntryExecutionNode {
         _entryDetailedInfos = entryInfoString;
     }
 
+    public String toInfoString() {
+
+        return _entryDetailedInfos.equals("")?_entryInfo:_entryDetailedInfos;
+    }
+
     private String toShortString() {
         StringBuffer sb = new StringBuffer();
 
