@@ -5,7 +5,7 @@
 	<import>ncdebugger.ExecutionEntry</import>
 	<import>ncdebugger.RECYCLE</import>
 	<import>ncdebugger.wrapCurrentExecutions</import>
-	<set property="timestamp">2013-07-02T22:10:52.431Z</set>
+	<set property="timestamp">2013-07-02T22:30:48.871Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -29,6 +29,7 @@ sizing : {
         cellViewSetup: (table, cellId, row) -> {
             Label view = table.createCellView(cellId);
             view.content = renderText(row.info, NORMAL);
+		view.allowWrap = true;
             return view;
         }
     },
@@ -61,8 +62,28 @@ sortKeys: [
             view.content = renderText(row.totalDuration, NORMAL);
             return view;
         }
+    },
+new LargeDataColumn<ExecutionEntry> {
+        id: "btn",
+   sizing : {
+		width:20
+	},     
+
+	header: renderText("", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            ExecutionButtons vv = table.createCellView(cellId);
+                vv.currentExecution = row;
+		
+              return vv;
+        }
     }
 ]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[rowHeight]]></set>
+									<set property="script"><![CDATA[90]]></set>
 								</object>
 							</item>
 						</list>
