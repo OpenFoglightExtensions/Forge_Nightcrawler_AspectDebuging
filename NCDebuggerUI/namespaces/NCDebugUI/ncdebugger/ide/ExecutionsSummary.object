@@ -3,8 +3,9 @@
 	<import>forge.ui.core.Label</import>
 	<import>forge.ui.views.table.LargeDataColumn</import>
 	<import>ncdebugger.ExecutionEntry</import>
+	<import>ncdebugger.RECYCLE</import>
 	<import>ncdebugger.wrapCurrentExecutions</import>
-	<set property="timestamp">2013-07-02T15:04:21.808Z</set>
+	<set property="timestamp">2013-07-02T22:10:52.431Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -68,6 +69,22 @@ sortKeys: [
 					</set>
 				</object>
 			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[refresh]]></set>
+					<set property="viewDefinition">Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderIcon(RECYCLE,16,"NORMAL")]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="listeners">
@@ -78,14 +95,55 @@ sortKeys: [
 					<set property="propertyName"><![CDATA[currentSession]]></set>
 				</object>
 			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[tblExecutions.rows = wrapCurrentExecutions(currentSession);]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[refresh]]></set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="layout">
-		<object type="forge.definitions.ChildRef">
+		<object type="forge.definitions.ColumnLayout">
 			<set property="constraint">
 				<object type="forge.definitions.TopLevelConstraint"/>
 			</set>
-			<set property="name"><![CDATA[tblExecutions]]></set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[refresh]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedHeight">2</set>
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[tblExecutions]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
 		</object>
 	</set>
 	<property name="currentSession" type="ncdebugger.SessionInfo"/>

@@ -9,7 +9,7 @@
 	<import>ncdebugger.getSessionsInfo</import>
 	<import>ncdebugger.wrapChildViews</import>
 	<import>ncdebugger.wrapSessionMain</import>
-	<set property="timestamp">2013-07-02T21:52:49.165Z</set>
+	<set property="timestamp">2013-07-02T22:08:55.511Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -23,22 +23,6 @@
 	</set>
 	<set property="childSpecs">
 		<list>
-			<item>
-				<object>
-					<set property="name"><![CDATA[btnRefresh]]></set>
-					<set property="viewDefinition">Button</set>
-					<set property="initialExpressions">
-						<list>
-							<item>
-								<object>
-									<set property="propertyName"><![CDATA[content]]></set>
-									<set property="script"><![CDATA[renderIcon(RECYCLE,16,"NORMAL")]]></set>
-								</object>
-							</item>
-						</list>
-					</set>
-				</object>
-			</item>
 			<item>
 				<object>
 					<set property="name"><![CDATA[trComponents]]></set>
@@ -137,17 +121,26 @@ width:45
 					</set>
 				</object>
 			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[refresh]]></set>
+					<set property="viewDefinition">Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderIcon(RECYCLE,16,"NORMAL")]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="listeners">
 		<list>
-			<item>
-				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[eval trComponents.root;]]></set>
-					<set property="eventName"><![CDATA[clicked]]></set>
-					<set property="propertyName"><![CDATA[btnRefresh]]></set>
-				</object>
-			</item>
 			<item>
 				<object type="forge.definitions.PropertyChangeListener">
 					<set property="script"><![CDATA[emit viewSelected(nodeShown);]]></set>
@@ -166,6 +159,13 @@ width:45
 					<set property="propertyName"><![CDATA[session]]></set>
 				</object>
 			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[trComponents.root = [ wrapSessionMain(getSessionsInfo(this)[0].session)];]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[refresh]]></set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="layout">
@@ -176,29 +176,22 @@ width:45
 			<set property="children">
 				<list>
 					<item>
-						<object type="forge.definitions.RowLayout">
+						<object type="forge.definitions.ChildRef">
 							<set property="constraint">
 								<object type="forge.definitions.BoxLayoutConstraint">
 									<set property="alignment">STRETCH</set>
 								</object>
 							</set>
-							<set property="children">
-								<list>
-									<item>
-										<object type="forge.definitions.ChildRef">
-											<set property="constraint">
-												<object type="forge.definitions.BoxLayoutConstraint">
-													<set property="margins">
-														<object>
-															<set property="bottom">10</set>
-														</object>
-													</set>
-												</object>
-											</set>
-											<set property="name"><![CDATA[btnRefresh]]></set>
-										</object>
-									</item>
-								</list>
+							<set property="name"><![CDATA[refresh]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedHeight">2</set>
+									<set property="alignment">STRETCH</set>
+								</object>
 							</set>
 						</object>
 					</item>

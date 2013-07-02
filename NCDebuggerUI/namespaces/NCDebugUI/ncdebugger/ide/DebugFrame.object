@@ -2,9 +2,10 @@
 <type name="DebugFrame" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
 	<import>forge.ide.frame.createContainerModel</import>
 	<import>ncdebugger.DlgSessions</import>
+	<import>ncdebugger.RECYCLE</import>
 	<import>ncdebugger.SessionInfo</import>
 	<import>ncdebugger.getSessionsInfo</import>
-	<set property="timestamp">2013-07-02T15:03:42.338Z</set>
+	<set property="timestamp">2013-07-02T22:05:22.289Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -26,6 +27,22 @@
 		<list>
 			<item>
 				<object>
+					<set property="name"><![CDATA[btnSessionsSelect]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("change Session",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
 					<set property="name"><![CDATA[components]]></set>
 					<set property="viewDefinition">LiveViewComponents</set>
 					<set property="registeredExpressions">
@@ -38,6 +55,12 @@
 							</item>
 						</list>
 					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[executions]]></set>
+					<set property="viewDefinition">ExecutionsSummary</set>
 				</object>
 			</item>
 			<item>
@@ -72,28 +95,6 @@ renderText("Current Session: "+ "("+currentSession.username+") " +currentSession
 							</item>
 						</list>
 					</set>
-				</object>
-			</item>
-			<item>
-				<object>
-					<set property="name"><![CDATA[btnSessionsSelect]]></set>
-					<set property="viewDefinition">forge.ui.core.Button</set>
-					<set property="initialExpressions">
-						<list>
-							<item>
-								<object>
-									<set property="propertyName"><![CDATA[content]]></set>
-									<set property="script"><![CDATA[renderText("change Session",NORMAL)]]></set>
-								</object>
-							</item>
-						</list>
-					</set>
-				</object>
-			</item>
-			<item>
-				<object>
-					<set property="name"><![CDATA[executions]]></set>
-					<set property="viewDefinition">ExecutionsSummary</set>
 				</object>
 			</item>
 		</list>
@@ -237,7 +238,7 @@ executions.currentSession = currentSession;
 														<object type="forge.definitions.Spacer">
 															<set property="constraint">
 																<object type="forge.definitions.BoxLayoutConstraint">
-																	<set property="fixedHeight">1</set>
+																	<set property="fixedHeight">5</set>
 																	<set property="alignment">STRETCH</set>
 																</object>
 															</set>
@@ -255,6 +256,17 @@ executions.currentSession = currentSession;
 														</object>
 													</item>
 												</list>
+											</set>
+											<set property="style">LIGHT_BORDER</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">5</set>
+													<set property="alignment">STRETCH</set>
+												</object>
 											</set>
 										</object>
 									</item>
@@ -278,6 +290,8 @@ executions.currentSession = currentSession;
 			</set>
 		</object>
 	</set>
-	<property name="currentSession" type="SessionInfo"/>
+	<property name="currentSession" type="SessionInfo" is-nullable="true">
+		<set property="access">READ_WRITE</set>
+	</property>
 	<property name="sessions" type="List&lt;SessionInfo&gt;"/>
 </type>
