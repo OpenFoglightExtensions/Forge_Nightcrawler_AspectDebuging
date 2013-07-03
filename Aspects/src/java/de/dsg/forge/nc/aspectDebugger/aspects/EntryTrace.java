@@ -26,7 +26,6 @@ import java.util.Map;
  */
 @Aspect
 public class EntryTrace {
-    private static final Log LOG = LogFactory.getLog(EntryTrace.class);
     private HashMap<Entry, EntryInfo> _entryInfos = new HashMap<Entry, EntryInfo>();
     private TempNodeTracer _tracedNodes = new TempNodeTracer();
 
@@ -43,7 +42,8 @@ public class EntryTrace {
         try {
             node = preProcessEntryExecution(entry);
         }  catch (Throwable t ) {
-            LOG.error("Catching  (pre) Aspects Error",t);
+            System.out.println("Catching  (pre) Aspects Error");
+
         }
 
 
@@ -54,14 +54,16 @@ public class EntryTrace {
         try {
             result = thisJoinPoint.proceed();
         }  catch (Throwable t ) {
-            LOG.error("Catching  WCF Error",t);
+            System.out.println("Catching  WCF Error");
+            t.printStackTrace();
             throw(t);
         }
 
         try {
             if (node != null) postProcessEntryExecution(entry, node);
         }  catch (Throwable t ) {
-            LOG.error("Catching  (Post) Aspects Error",t);
+            System.out.println("Catching  (Post) Aspects Error");
+            t.printStackTrace();
 
         }
 
@@ -77,9 +79,8 @@ public class EntryTrace {
         node = _tracedNodes.retrieve(entry);
 
         if (node == null) {
-            LOG.debug("Node not TRACED (or not found) ... creating one now");
             node = _tracedNodes.prepareNode(entry);
-            LOG.debug("--" + node);
+
         }
 
         node.startExecution();
@@ -88,9 +89,6 @@ public class EntryTrace {
 
     private void postProcessEntryExecution(Entry entry, EntryExecutionNode node) {
         //post Call
-        if (node == null) {
-            LOG.error("Node not TRACED (or not found) ... FATAL");
-        }
 
         if (node != null){
              node.stopExecution();
@@ -112,13 +110,8 @@ public class EntryTrace {
                   if (session != null) {
                       if (!session.hasExecution(node)) {
                           session.addExecutionNode(node);
-                      } else {
-                          LOG.warn ("!!!!!!   Root not registered, already in Session");
                       }
 
-                  } else {
-                      LOG.warn("Session not found !!! couldn't add the following node tree");
-                      LOG.warn(node.dumpTreeStructure());
                   }
               } else {
 
@@ -129,23 +122,16 @@ public class EntryTrace {
                   // TODO Check if root is registered
                   ActiveSession session = SessionRegistry.getSingleton().mapQueueToSession(entry.getEnvironment().getSessionQueue());
                   if (!session.hasExecution(root)) {
-                    LOG.debug("#####registering Root (wasn't part of Session)");
+
                     session.addExecutionNode(root);
-                      LOG.debug("--" + root);
+
                   }
 
                      _tracedNodes.dropNode(entry);
 
                   if (root.isTreeDone()) {
 
-                      LOG.debug("RootNode:"+root);
-                      LOG.debug("------------------");
-                      LOG.debug(root.dumpTreeStructure());
 
-                      // release the root node and it's entries
-                      // because we drop entries early, this is a slightly more complicated call
-
-                      //_tracedNodes.dropNode(root);  // No longer needed
                   }
               }
 
@@ -243,7 +229,7 @@ public class EntryTrace {
 
     @Before("withincode(* com.quest.forge.ui.web.queue.SessionQueue.append(..)) && pcListRemove(arg) && this(queue)")
     public void entryRemoved(SessionQueue queue,Entry arg) {
-        LOG.error("!!!!!!!!!!!!!!!!!REMOVE ENTRY  :"+arg);
+
         _tracedNodes.dropNode(arg);
     }
 

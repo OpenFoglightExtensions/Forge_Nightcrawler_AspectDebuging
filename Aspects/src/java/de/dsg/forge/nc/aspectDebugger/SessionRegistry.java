@@ -26,16 +26,12 @@ public class SessionRegistry implements iSessionRegistry {
     // TODO Mapp all elements to de.dsg.forge.nc.aspectDebugger.interfaces
 
 
-    private static final Log LOG = LogFactory.getLog(SessionRegistry.class);
     private HashMap<SessionQueue, String> _queueMapping = new HashMap<SessionQueue, String>();
 
     public static SessionRegistry getSingleton() {
-        LOG.debug("########################### GET SINGLETON #############################");
         if (_instance == null) {
             _instance = new SessionRegistry();
             com.quest.forge.ui.core.services.Registry.getContext().register(_instance);
-            LOG.debug("########################### Registered on #############################");
-            LOG.debug("###"+com.quest.forge.ui.core.services.Registry.getContext());
 
 
 
@@ -46,9 +42,7 @@ public class SessionRegistry implements iSessionRegistry {
 
 
     public void addSession(ActiveSession activeSession) {
-        if (_sessions.containsKey(activeSession.getInfo().getSessionId())) {
-            LOG.error("Session with ID ("+activeSession.getInfo().getSessionId()+") already registered ! ");
-        } else {
+        if (!_sessions.containsKey(activeSession.getInfo().getSessionId()))  {
             _sessions.put(activeSession.getInfo().getSessionId(),activeSession);
         }
 
@@ -57,8 +51,6 @@ public class SessionRegistry implements iSessionRegistry {
     public void removeSession(String id) {
         if (_sessions.containsKey(id)) {
             _sessions.remove(id);
-        } else {
-            LOG.error("Session with ID wasn't found during removeSession call. (ID:"+id+")   Remove canceled.");
         }
 
     }
@@ -74,7 +66,7 @@ public class SessionRegistry implements iSessionRegistry {
 
     public String mapQueueToSessionId(SessionQueue queue) {
         if (!_queueMapping.containsKey(queue)) {
-            LOG.error("Session not found ("+queue+")");
+
             return "-1";
         } else return _queueMapping.get(queue);
     }
@@ -91,7 +83,7 @@ public class SessionRegistry implements iSessionRegistry {
 
     public  iActiveSession getSession(String sessionID) {
         if (!_sessions.containsKey(sessionID)) {
-            LOG.error("Session not found for key :"+sessionID);
+
             return null;
         } else return _sessions.get(sessionID);
     }

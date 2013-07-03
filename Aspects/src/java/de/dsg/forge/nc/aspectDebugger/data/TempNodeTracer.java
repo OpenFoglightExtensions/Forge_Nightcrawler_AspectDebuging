@@ -21,7 +21,6 @@ import java.util.Set;
 public  class TempNodeTracer {
     private HashMap<Entry,EntryExecutionNode> _nodes = new HashMap<Entry, EntryExecutionNode>();
 
-    private static final Log LOG = LogFactory.getLog(EntryTrace.class);
 
 
     public synchronized EntryExecutionNode prepareNode(Entry entry) {
@@ -36,9 +35,8 @@ public  class TempNodeTracer {
             // TODO Maybe we need to link the parent Node to the Session :-)
 
             if (parentNode == null) {
-                LOG.debug("Parent node empty, create one now!");
                 parentNode = this.prepareNode(entry.getOriginatingEntry());
-                LOG.debug("--"+parentNode);
+
             } else parentNode.linkChildNode(n);
 
 

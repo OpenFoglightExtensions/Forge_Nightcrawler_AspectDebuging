@@ -171,7 +171,7 @@ public class EntryExecutionNode {
 
     }
 
-    private Iterator<EntryExecutionNode> iterateChildren() {
+    public Iterator<EntryExecutionNode> iterateChildren() {
         return _children.iterator();
     }
 
