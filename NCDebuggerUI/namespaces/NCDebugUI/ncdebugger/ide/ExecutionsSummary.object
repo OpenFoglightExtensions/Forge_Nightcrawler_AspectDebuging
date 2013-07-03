@@ -5,7 +5,7 @@
 	<import>ncdebugger.ExecutionEntry</import>
 	<import>ncdebugger.RECYCLE</import>
 	<import>ncdebugger.wrapCurrentExecutions</import>
-	<set property="timestamp">2013-07-02T22:30:48.871Z</set>
+	<set property="timestamp">2013-07-03T13:17:12.157Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -51,15 +51,30 @@ sortKeys: [
 new LargeDataColumn<ExecutionEntry> {
         id: "executionTime",
    sizing : {
-		width:140
+		width:40
 	},     
 sortKeys: [
             {valueClosure: item -> item.totalDuration}
         ],
-	header: renderText("last Executed", NORMAL),
+	header: renderText("totalDuration", NORMAL),
         cellViewSetup: (table, cellId, row) -> {
             Label view = table.createCellView(cellId);
             view.content = renderText(row.totalDuration, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<ExecutionEntry> {
+        id: "#",
+   sizing : {
+		width:40
+	},     
+sortKeys: [
+            {valueClosure: item -> item.totalChildrenCount}
+        ],
+	header: renderText("#", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.totalChildrenCount, NORMAL);
             return view;
         }
     },
@@ -72,6 +87,20 @@ new LargeDataColumn<ExecutionEntry> {
 	header: renderText("", NORMAL),
         cellViewSetup: (table, cellId, row) -> {
             ExecutionButtons vv = table.createCellView(cellId);
+                vv.currentExecution = row;
+		
+              return vv;
+        }
+    },
+new LargeDataColumn<ExecutionEntry> {
+        id: "btn2",
+   sizing : {
+		width:20
+	},     
+
+	header: renderText("", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            ExecutionInfoButton vv = table.createCellView(cellId);
                 vv.currentExecution = row;
 		
               return vv;

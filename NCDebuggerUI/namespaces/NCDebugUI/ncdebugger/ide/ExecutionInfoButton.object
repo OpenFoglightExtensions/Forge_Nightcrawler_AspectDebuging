@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ExecutionInfoButton" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.INFO</import>
+	<set property="timestamp">2013-07-03T13:16:35.244Z</set>
+	<set property="state">VALID</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[label1]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderIcon(INFO,16,"NORMAL")]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[DetailDialog ses = createPopUp();
+ses.execution =currentExecution;
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[label1]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ChildRef">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="name"><![CDATA[label1]]></set>
+		</object>
+	</set>
+	<property name="currentExecution" type="ncdebugger.ExecutionEntry"/>
+</type>

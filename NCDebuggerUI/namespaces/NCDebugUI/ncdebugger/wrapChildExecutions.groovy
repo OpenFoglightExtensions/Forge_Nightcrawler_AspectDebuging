@@ -3,9 +3,13 @@ package ncdebugger;
 
 def f = com.quest.forge.data.NameRegistry.getObject("ncdebugger.ExecutionEntry");
 
+def executionsList = []
 
+def exIt =  execution.executionNode.iterateChildren()
 
-def erg = activeSession.activeSession.executions.collect { node->
+while (exIt.hasNext()){
+	def node = exIt.next()
+
 def n2= com.quest.forge.datasupport.util.ObjectFactory.createObject(f);
 
 n2.set("startTimestamp",node.getStartTimestamp());
@@ -22,13 +26,8 @@ n2.set("executionNode",node);
 n2.set("info",node.toInfoString());
 n2.set("longInfo",node.toString());
 
-
-
-
-
-return n2
-
+	executionsList += n2
 }
 
+return executionsList
 
-return erg

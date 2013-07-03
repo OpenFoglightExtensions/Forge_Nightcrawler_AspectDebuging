@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object type="forge.definitions.GroovyFunction&lt;Tuple&lt;SessionInfo&gt;, List&lt;ExecutionEntry&gt;&gt;" xmlns="urn:quest-com:forge-objects-1-0">
 	<set property="name"><![CDATA[wrapCurrentExecutions]]></set>
-	<set property="timestamp">2013-07-02T14:47:45.745Z</set>
+	<set property="timestamp">2013-07-03T13:10:25.740Z</set>
 	<set property="access">PRIVATE</set>
 	<set property="parameters">
 		<list>

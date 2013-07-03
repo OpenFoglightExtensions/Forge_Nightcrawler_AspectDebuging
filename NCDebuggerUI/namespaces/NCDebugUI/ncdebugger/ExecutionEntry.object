@@ -9,4 +9,5 @@
 	<property name="totalStopTimestamp" type="forge.monitoring.core.Timestamp"/>
 	<property name="executionNode" type="Object"/>
 	<property name="info" type="String"/>
+	<property name="longInfo" type="String"/>
 </type>

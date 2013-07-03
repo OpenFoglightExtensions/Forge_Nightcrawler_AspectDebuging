@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.GroovyFunction&lt;Tuple&lt;ExecutionEntry&gt;, List&lt;ExecutionEntry&gt;&gt;" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[wrapChildExecutions]]></set>
+	<set property="timestamp">2013-07-03T13:10:17.959Z</set>
+	<set property="access">PRIVATE</set>
+	<set property="parameters">
+		<list>
+			<item><![CDATA[execution]]></item>
+		</list>
+	</set>
+</object>
