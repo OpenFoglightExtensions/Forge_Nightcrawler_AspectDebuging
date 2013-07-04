@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="SessionChooser" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.Label</import>
+	<import>forge.ui.views.dialog.DialogButton</import>
+	<import>forge.ui.views.table.LargeDataColumn</import>
+	<import>ncdebugger.SessionInfo</import>
+	<import>ncdebugger.getSessionsInfo</import>
+	<set property="timestamp">2013-07-02T13:15:43.434Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[buttons]]></set>
+					<set property="script"><![CDATA[[new DialogButton {
+	label: "cancel",
+	onClick: () -> {
+		this.close();
+	}
+}
+]]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[tblSessions]]></set>
+					<set property="viewDefinition">forge.ui.core.LargeTable&lt;SessionInfo&gt;</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[columns]]></set>
+									<set property="script"><![CDATA[[
+    new LargeDataColumn<SessionInfo> {
+        id: "c1",
+sizing : {
+		width:50
+	},
+        header: renderText("Session ID", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.sessionId, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<SessionInfo> {
+        id: "user",
+sizing : {
+		width:100
+	},
+sortKeys: [
+            {valueClosure: item -> item.username}
+        ],
+           header: renderText("Username", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.username, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<SessionInfo> {
+        id: "main",
+	sizing : {
+		weight:1
+	},
+sortKeys: [
+            {valueClosure: item -> item.mainView}
+        ],
+        header: renderText("Main View", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.mainView, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<SessionInfo> {
+        id: "time",
+   sizing : {
+		width:140
+	},     
+sortKeys: [
+            {valueClosure: item -> item.createdTimestamp}
+        ],
+	header: renderText("Created", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.createdTimestamp, NORMAL);
+            return view;
+        }
+    },
+new LargeDataColumn<SessionInfo> {
+        id: "executionTime",
+   sizing : {
+		width:140
+	},     
+sortKeys: [
+            {valueClosure: item -> item.lastExecution}
+        ],
+	header: renderText("last Executed", NORMAL),
+        cellViewSetup: (table, cellId, row) -> {
+            Label view = table.createCellView(cellId);
+            view.content = renderText(row.lastExecution, NORMAL);
+            return view;
+        }
+    }
+]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[rows]]></set>
+									<set property="script"><![CDATA[getSessionsInfo(this)]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[singleSelectionEnabled]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[debugFrame.currentSession = row;
+this.close();]]></set>
+					<set property="eventName"><![CDATA[rowSelected]]></set>
+					<set property="propertyName"><![CDATA[tblSessions]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+									<set property="minimumWidth">680</set>
+									<set property="minimumHeight">460</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[tblSessions]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="debugFrame" type="DebugFrame"/>
+</type>

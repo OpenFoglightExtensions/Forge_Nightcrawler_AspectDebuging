@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="DetailDialog" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.views.dialog.DialogButton</import>
+	<set property="timestamp">2013-07-03T13:28:38.019Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[buttons]]></set>
+					<set property="script"><![CDATA[[
+
+new DialogButton {
+	label: "info",
+	onClick: () -> {
+		txt.value = execution.longInfo;
+	}
+},new DialogButton {
+	label: "tree",
+	onClick: () -> {
+		txt.value = dumpExecutionTree( execution);
+	}
+},new DialogButton {
+	label: "close",
+	onClick: () -> {
+		this.close();
+	}
+}
+]]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[txt]]></set>
+					<set property="viewDefinition">forge.ui.core.TextArea</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[value]]></set>
+									<set property="script"><![CDATA["PLACEHOLDER"]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[readOnly]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[txt.value = execution.longInfo;]]></set>
+					<set property="propertyName"><![CDATA[execution]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="minimumWidth">820</set>
+									<set property="minimumHeight">640</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[txt]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="execution" type="ncdebugger.ExecutionEntry"/>
+</type>

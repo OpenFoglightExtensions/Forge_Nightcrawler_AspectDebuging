@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.GroovyFunction&lt;Tuple&lt;Object&gt;, List&lt;ViewWrapper&gt;&gt;" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[wrapSessionMain]]></set>
+	<set property="timestamp">2013-07-02T10:44:36.592Z</set>
+	<set property="access">PRIVATE</set>
+	<set property="parameters">
+		<list>
+			<item><![CDATA[session]]></item>
+		</list>
+	</set>
+</object>

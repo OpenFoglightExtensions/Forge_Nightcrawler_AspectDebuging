@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.Icon" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[OFF]]></set>
+	<set property="timestamp">2013-07-04T13:46:45.199Z</set>
+	<set property="access">PRIVATE</set>
+</object>

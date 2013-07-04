@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ScriptExecutor" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<set property="timestamp">2013-07-03T11:20:32.278Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[src]]></set>
+					<set property="script"><![CDATA["// please enter Script here"]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[execute]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("execute Script",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[lblHeading]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("Script",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[results]]></set>
+					<set property="viewDefinition">forge.ui.core.TextArea</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[readOnly]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[value]]></set>
+									<set property="script"><![CDATA[""+result]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[script]]></set>
+					<set property="viewDefinition">forge.ui.core.TextArea</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[handleTabs]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[helpDisplay]]></set>
+					<set property="viewDefinition">HelpDisplay</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[result = execScript(src,this);]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[execute]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[src = value;]]></set>
+					<set property="eventName"><![CDATA[valueChanged]]></set>
+					<set property="propertyName"><![CDATA[script]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[eval results.value;
+helpDisplay.helpValue = result;]]></set>
+					<set property="propertyName"><![CDATA[result]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint">
+					<set property="margins">
+						<object>
+							<set property="left">10</set>
+							<set property="right">10</set>
+							<set property="top">20</set>
+							<set property="bottom">10</set>
+						</object>
+					</set>
+				</object>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[lblHeading]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="allowVerticalScrolling">true</set>
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="allowHorizontalScrolling">true</set>
+													<set property="allowVerticalScrolling">true</set>
+													<set property="alignment">STRETCH</set>
+													<set property="weight">1</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[script]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">END</set>
+													<set property="margins">
+														<object>
+															<set property="left">5</set>
+															<set property="right">5</set>
+														</object>
+													</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[execute]]></set>
+											<set property="style">LIGHT_BORDER</set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedHeight">10</set>
+									<set property="alignment">START</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="allowHorizontalScrolling">true</set>
+													<set property="allowVerticalScrolling">true</set>
+													<set property="alignment">STRETCH</set>
+													<set property="weight">2</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[results]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">STRETCH</set>
+													<set property="weight">1</set>
+													<set property="margins">
+														<object>
+															<set property="left">5</set>
+														</object>
+													</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[helpDisplay]]></set>
+											<set property="style">LIGHT_BORDER</set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="src" type="String"/>
+	<property name="result" type="Object"/>
+</type>

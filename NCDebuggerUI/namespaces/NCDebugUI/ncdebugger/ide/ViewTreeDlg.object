@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ViewTreeDlg" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.views.dialog.DialogButton</import>
+	<import>ncdebugger.getCurrentSessionInfo</import>
+	<set property="timestamp">2013-07-04T14:16:42.359Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[buttons]]></set>
+					<set property="script"><![CDATA[[new DialogButton {
+	label: "close",
+	onClick: () -> {
+		this.close();
+	}
+}
+]]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[liveViewComponents]]></set>
+					<set property="viewDefinition">LiveViewComponents</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[session]]></set>
+									<set property="script"><![CDATA[getCurrentSessionInfo(this)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+									<set property="minimumWidth">860</set>
+									<set property="minimumHeight">640</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[liveViewComponents]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+</type>

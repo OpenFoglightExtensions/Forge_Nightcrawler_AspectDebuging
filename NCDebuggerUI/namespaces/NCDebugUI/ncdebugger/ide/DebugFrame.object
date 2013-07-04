@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="DebugFrame" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ide.frame.createContainerModel</import>
+	<import>ncdebugger.DlgSessions</import>
+	<import>ncdebugger.RECYCLE</import>
+	<import>ncdebugger.SessionInfo</import>
+	<import>ncdebugger.getSessionsInfo</import>
+	<set property="timestamp">2013-07-02T22:05:22.289Z</set>
+	<set property="state">VALID</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[btnSessionsSelect]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("change Session",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[components]]></set>
+					<set property="viewDefinition">LiveViewComponents</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[session]]></set>
+									<set property="script"><![CDATA[currentSession]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[executions]]></set>
+					<set property="viewDefinition">ExecutionsSummary</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[ideEditor]]></set>
+					<set property="viewDefinition">forge.ide.frame.EditorContainer</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[containerModel]]></set>
+									<set property="script"><![CDATA[createContainerModel()]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[lblCurrentSession]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[
+renderText("Current Session: "+ "("+currentSession.username+") " +currentSession.mainView+ "   started :"+currentSession.createdTimestamp,NORMAL)
+]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[SessionChooser ses = createPopUp();
+ses.debugFrame = this;
+
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[btnSessionsSelect]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[ideEditor.definition = view;]]></set>
+					<set property="eventName"><![CDATA[viewSelected]]></set>
+					<set property="propertyName"><![CDATA[components]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[components.session = currentSession;
+eval lblCurrentSession.content;
+executions.currentSession = currentSession;
+]]></set>
+					<set property="propertyName"><![CDATA[currentSession]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint">
+					<set property="margins">
+						<object>
+							<set property="left">5</set>
+							<set property="top">10</set>
+						</object>
+					</set>
+				</object>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="bottom">20</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">MIDDLE</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[lblCurrentSession]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="margins">
+														<object>
+															<set property="left">10</set>
+														</object>
+													</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[btnSessionsSelect]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">1</set>
+													<set property="alignment">STRETCH</set>
+												</object>
+											</set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ColumnLayout">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="borderInsets">
+														<object>
+															<set property="left">5</set>
+															<set property="right">5</set>
+															<set property="top">5</set>
+															<set property="bottom">5</set>
+														</object>
+													</set>
+													<set property="alignment">STRETCH</set>
+													<set property="weight">1</set>
+													<set property="maximumWidth">650</set>
+												</object>
+											</set>
+											<set property="children">
+												<list>
+													<item>
+														<object type="forge.definitions.ChildRef">
+															<set property="constraint">
+																<object type="forge.definitions.BoxLayoutConstraint">
+																	<set property="alignment">STRETCH</set>
+																</object>
+															</set>
+															<set property="name"><![CDATA[components]]></set>
+														</object>
+													</item>
+													<item>
+														<object type="forge.definitions.Spacer">
+															<set property="constraint">
+																<object type="forge.definitions.BoxLayoutConstraint">
+																	<set property="fixedHeight">5</set>
+																	<set property="alignment">STRETCH</set>
+																</object>
+															</set>
+														</object>
+													</item>
+													<item>
+														<object type="forge.definitions.ChildRef">
+															<set property="constraint">
+																<object type="forge.definitions.BoxLayoutConstraint">
+																	<set property="alignment">STRETCH</set>
+																	<set property="weight">1</set>
+																</object>
+															</set>
+															<set property="name"><![CDATA[executions]]></set>
+														</object>
+													</item>
+												</list>
+											</set>
+											<set property="style">LIGHT_BORDER</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">5</set>
+													<set property="alignment">STRETCH</set>
+												</object>
+											</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">STRETCH</set>
+													<set property="weight">1</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[ideEditor]]></set>
+											<set property="style">LIGHT_BORDER</set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="currentSession" type="SessionInfo" is-nullable="true">
+		<set property="access">READ_WRITE</set>
+	</property>
+	<property name="sessions" type="List&lt;SessionInfo&gt;"/>
+</type>

@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="NCDebuggingTile" extends="forge.ui.main.ChooserTile" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.main.ActivityManager</import>
+	<set property="timestamp">2013-07-04T14:09:07.518Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[sessions]]></set>
+					<set property="script"><![CDATA[getSessionsInfo(this)]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[btnMore]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("more ...",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[btnStartIDE]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("Start Debug IDE",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[label1]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("Sessions connected",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[lblOverlay]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderIcon(WATCH,16,"NORMAL")]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[lblSessionCount]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[alignment]]></set>
+									<set property="script"><![CDATA[CENTER]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText(getSessionsInfo(this).size,NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[scriptEditor]]></set>
+					<set property="viewDefinition">forge.everything.summarize.defaulttiles.TileLabelWidget</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[inputObjectsName]]></set>
+									<set property="script"><![CDATA[ $scriptEditorName]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[title]]></set>
+					<set property="viewDefinition">forge.everything.summarize.defaulttiles.TileLabelWidget</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[inputObjectsName]]></set>
+									<set property="script"><![CDATA["WCF Debugging Toolkit"]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[titleLabel]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("<beta>",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[DlgSessions ses = createPopUp();
+ses.sessions = sessions;
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[btnMore]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[openWebPage("/view/ncdebugger.ide.DebugFrame");]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[btnStartIDE]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[ActivityManager am = findAncestor();
+
+EmbeddedDebugDialog ses = createPopUp();
+moveDialog(ses,200,5);
+ses.am = am;
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[lblOverlay]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[openWebPage("/view/ncdebugger.script.ScriptExecutor");]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[scriptEditor]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[titleLabel]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">STRETCH</set>
+													<set property="margins">
+														<object>
+															<set property="top">16</set>
+														</object>
+													</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[title]]></set>
+											<set property="style">SECTION_HEADER</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">STRETCH</set>
+													<set property="weight">2</set>
+												</object>
+											</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">MIDDLE</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[lblOverlay]]></set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="left">10</set>
+											<set property="right">10</set>
+											<set property="top">10</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[scriptEditor]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="left">10</set>
+											<set property="right">10</set>
+											<set property="top">10</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">40</set>
+													<set property="alignment">STRETCH</set>
+												</object>
+											</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">20</set>
+													<set property="fixedHeight">15</set>
+													<set property="alignment">MIDDLE</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[lblSessionCount]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">MIDDLE</set>
+													<set property="weight">1</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[label1]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint"/>
+											</set>
+											<set property="name"><![CDATA[btnMore]]></set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedHeight">10</set>
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Separator">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedHeight">2</set>
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="style">LIGHT_BORDER</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">START</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="left">40</set>
+											<set property="right">40</set>
+											<set property="bottom">20</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[btnStartIDE]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+			<set property="style">LIGHT_BORDER</set>
+		</object>
+	</set>
+	<property name="sessions" type="List&lt;SessionInfo&gt;"/>
+</type>
