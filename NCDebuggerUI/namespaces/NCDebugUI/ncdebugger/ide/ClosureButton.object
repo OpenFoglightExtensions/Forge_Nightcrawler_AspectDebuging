@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<type name="ClosureButton" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
-	<set property="timestamp">2013-07-02T13:19:57.435Z</set>
-	<set property="state">ERROR</set>
-	<property name="closure" type="Object"/>
-</type>
