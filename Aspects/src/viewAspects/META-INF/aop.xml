@@ -4,7 +4,7 @@
         <aspect name="de.dsg.forge.nc.aspectDebugger.ViewTreeAccessor"/>
     </aspects>
                      <!-- -verbose -showWeaveInfo -->
-    <weaver options="-verbose -showWeaveInfo">
+    <weaver options="">
         <include within="com.quest.forge.ui..*"/>
         <include within="com.quest.wcf.core.services..*"/>
         <include within="de.dsg..*"/>
