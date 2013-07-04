@@ -176,7 +176,7 @@
         <delete file="${basedir}//tmp/namespaces.zip" failonerror="true"></delete>
         <fglcmd command="util:exportNamespaces -file ${basedir}/tmp/namespaces.zip -cartridge ${namespace.name} " server="${foglight.server}"/>
 
-        <delete dir="${basedir}/namespaces" includes="**/*" failonerror="false"></delete>
+       <!-- <delete dir="${basedir}/namespaces" includes="**/*" failonerror="false"></delete>-->
         <unzip dest="${basedir}/namespaces" src="${basedir}/tmp/namespaces.zip" overwrite="true"   />
 
 
