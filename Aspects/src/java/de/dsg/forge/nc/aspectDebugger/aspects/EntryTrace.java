@@ -8,8 +8,7 @@ import com.quest.forge.ui.web.queue.SessionQueue;
 import de.dsg.forge.nc.aspectDebugger.SessionRegistry;
 import de.dsg.forge.nc.aspectDebugger.ViewTreeAccessor;
 import de.dsg.forge.nc.aspectDebugger.data.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -145,14 +144,7 @@ public class EntryTrace {
         }
     }
 
-    private void dumpViews(ViewTreeAccessor.ViewsConnection c,String prefix ) {
-        View current = (View) c;
-        System.out.println(prefix + ":"+current.getId()+"  ||| "+current.getType() + "  ("+c);
 
-        for (View c2 : c.getChildViews()) {
-            dumpViews((ViewTreeAccessor.ViewsConnection) c2,prefix+"|----");
-        }
-    }
 
     private String getEntryInfoString(Entry entry) {
 
@@ -169,7 +161,6 @@ public class EntryTrace {
         return dumpTxt.toString();
 
     }
-
 
 
 
@@ -205,46 +196,38 @@ public class EntryTrace {
         _tracedNodes.prepareNode(entry);
     }
 
-    @Pointcut( "execution (* com.quest.forge.ui.web.queue.SessionQueue.append(..))")
-    void pcSessionQueueAppend(){}
 
-    @Pointcut("call( * java.util.LinkedList.add(..)) && args(arg)")
-    void pcListAdd(Entry arg) { }
+
 
     @Pointcut("call( * *..*.remove(..)) && args(arg)")
     void pcListRemove(Entry arg) { }
 
 
-//    doesn't catch all node, switch to constructor bounds
-//    @Before("withincode(* com.quest.forge.ui.web.queue.SessionQueue.append(..)) && pcListAdd(arg) && this(queue)")
-//    public void entryAdded(SessionQueue queue,Entry arg) {
-//
-//        String sessionId = SessionRegistry.getSingleton().mapQueueToSessionId(queue);
-//        if (sessionId.equals("-1")) {
-//            LOG.error("No Session found. aborting");
-//            return;
-//        }
-//       _tracedNodes.prepareNode(sessionId,arg);
-//    }
+
 
     @Before("withincode(* com.quest.forge.ui.web.queue.SessionQueue.append(..)) && pcListRemove(arg) && this(queue)")
     public void entryRemoved(SessionQueue queue,Entry arg) {
 
-        _tracedNodes.dropNode(arg);
+        try {
+            _tracedNodes.dropNode(arg);
+        }   catch (Throwable t) {}
     }
-
-//    @Before("call( * *..*.remove(*..*Entry)) && args(arg)")
-//    public void entryRemovedList(Entry arg) {
-//        LOG.error("1##!!!!!!!!!!!!!!REMOVE ENTRY  :"+arg);
-//        _tracedNodes.dropNode(arg);
-//    }
-
-
 
 
     //TODO: add More Details for "queue" Nodes details to Execution Tracer
 
+    @Around("call (* org.apache.commons.logging.impl.Log4JLogger.warn(..))")
+    public void warnWrapper(ProceedingJoinPoint thisJoinPoint) {
 
+
+        try {
+            thisJoinPoint.proceed();
+        }  catch (Throwable t ) {
+            System.out.println("Catching  Log Error in WEB "+t.getMessage());
+            t.printStackTrace();
+
+        }
+    }
 
 
 

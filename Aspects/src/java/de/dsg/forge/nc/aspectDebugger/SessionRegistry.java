@@ -5,8 +5,7 @@ import com.quest.forge.ui.web.queue.SessionQueue;
 import de.dsg.forge.nc.aspectDebugger.data.ActiveSession;
 import de.dsg.forge.nc.aspectDebugger.interfaces.iActiveSession;
 import de.dsg.forge.nc.aspectDebugger.interfaces.iSessionRegistry;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,7 +30,7 @@ public class SessionRegistry implements iSessionRegistry {
     public static SessionRegistry getSingleton() {
         if (_instance == null) {
             _instance = new SessionRegistry();
-            com.quest.forge.ui.core.services.Registry.getContext().register(_instance);
+
 
 
 

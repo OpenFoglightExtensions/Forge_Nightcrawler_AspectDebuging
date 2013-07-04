@@ -3,8 +3,6 @@ package de.dsg.forge.nc.aspectDebugger.data;
 import com.quest.forge.ui.web.queue.Entry;
 import de.dsg.forge.nc.aspectDebugger.aspects.EntryTrace;
 import de.dsg.forge.nc.aspectDebugger.data.EntryExecutionNode;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -45,7 +43,7 @@ public  class TempNodeTracer {
     }
 
     public synchronized void dropNode(Entry entry) {
-        _nodes.remove(entry);
+        if(_nodes.containsKey(entry)) _nodes.remove(entry);
 
     }
 

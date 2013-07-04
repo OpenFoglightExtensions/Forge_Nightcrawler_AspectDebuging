@@ -12,10 +12,8 @@ import com.quest.forge.ui.views.atomic.switchables.BaseSwitchable;
 import com.quest.forge.ui.views.base.BaseView;
 import com.quest.forge.ui.views.custom.BaseCustomView;
 import com.quest.forge.ui.web.Session;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.DeclareParents;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -141,6 +139,19 @@ public class ViewTreeAccessor {
     public void registerIteratorMap(Map<String,View> vMap, View v){
         ((ViewsConnection)v).setXXXCurrentIteratorMap(vMap);
 
+    }
+
+    @Around("call (* org.apache.commons.logging.impl.Log4JLogger.warn(..))")
+    public void warnWrapper(ProceedingJoinPoint thisJoinPoint) {
+
+
+        try {
+            thisJoinPoint.proceed();
+        }  catch (Throwable t ) {
+            System.out.println("Catching  Log Error in VIEW"+t.getMessage());
+            t.printStackTrace();
+
+        }
     }
 
 }

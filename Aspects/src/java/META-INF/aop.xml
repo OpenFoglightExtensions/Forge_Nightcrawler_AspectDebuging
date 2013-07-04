@@ -2,12 +2,13 @@
     <aspects>
        <!-- <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.PlainTracer"/>-->
         <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.SessionConnector"/>
-        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.EntryTrace"/>
         <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.RegistryConnector"/>
+
+        <aspect name="de.dsg.forge.nc.aspectDebugger.aspects.EntryTrace"/>
 
     </aspects>
                      <!-- -verbose -showWeaveInfo -->
-    <weaver options="-verbose -showWeaveInfo">
+    <weaver options="">
         <include within="com.quest.forge.ui..*"/>
         <include within="com.quest.wcf.core.services..*"/>
         <include within="de.dsg..*"/>

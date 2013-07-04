@@ -17,7 +17,6 @@
     <orderEntry type="library" name="wcf-core" level="project" />
     <orderEntry type="library" name="wcf-web" level="project" />
     <orderEntry type="library" name="forge-api" level="project" />
-    <orderEntry type="library" name="commons-logging" level="project" />
   </component>
 </module>
 
