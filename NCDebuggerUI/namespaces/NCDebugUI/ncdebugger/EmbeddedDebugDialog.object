@@ -4,7 +4,8 @@
 	<import>forge.ui.main.ActivityManager</import>
 	<import>ncdebugger.ide.ExecutionsDlg</import>
 	<import>ncdebugger.ide.ViewTreeDlg</import>
-	<set property="timestamp">2013-07-04T14:21:55.858Z</set>
+	<import>ncdebugger.script.GroovyScriptPopup</import>
+	<set property="timestamp">2013-07-10T11:28:25.578Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -66,6 +67,22 @@
 					</set>
 				</object>
 			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[groovy]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("[groovy]",DIM)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="listeners">
@@ -97,6 +114,16 @@ ExecutionsDlg ses = am.createPopUp();
 ses.show();]]></set>
 					<set property="eventName"><![CDATA[clicked]]></set>
 					<set property="propertyName"><![CDATA[execs]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[
+GroovyScriptPopup ses = am.createPopUp();
+ses.am = am;
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[groovy]]></set>
 				</object>
 			</item>
 		</list>
@@ -147,11 +174,27 @@ ses.show();]]></set>
 					<item>
 						<object type="forge.definitions.ChildRef">
 							<set property="constraint">
-								<object type="forge.definitions.BoxLayoutConstraint">
-									<set property="weight">1</set>
-								</object>
+								<object type="forge.definitions.BoxLayoutConstraint"/>
 							</set>
 							<set property="name"><![CDATA[execs]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedWidth">5</set>
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint"/>
+							</set>
+							<set property="name"><![CDATA[groovy]]></set>
 						</object>
 					</item>
 				</list>

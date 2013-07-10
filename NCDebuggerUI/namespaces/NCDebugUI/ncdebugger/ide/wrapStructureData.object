@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.GroovyFunction&lt;Tuple&lt;Structure&gt;, List&lt;ViewDataWrapper&gt;&gt;" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[wrapStructureData]]></set>
+	<set property="access">PRIVATE</set>
+	<set property="parameters">
+		<list>
+			<item><![CDATA[src]]></item>
+		</list>
+	</set>
+</object>

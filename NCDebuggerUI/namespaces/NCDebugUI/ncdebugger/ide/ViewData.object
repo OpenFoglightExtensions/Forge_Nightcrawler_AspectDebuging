@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ViewData" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.Label</import>
+	<import>forge.ui.views.dialog.DialogButton</import>
+	<import>forge.ui.views.treetable.NodeDescriptor</import>
+	<set property="timestamp">2013-07-10T14:14:37.841Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[buttons]]></set>
+					<set property="script"><![CDATA[[new DialogButton {
+	label: "close",
+	onClick: () -> {
+		this.close();
+	}
+}
+]]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[tree]]></set>
+					<set property="viewDefinition">forge.ui.core.TreeTable</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[columnsStructure]]></set>
+									<set property="script"><![CDATA[[
+
+{
+	id: "propName",
+	
+	sizing: {
+		minimum:120
+	},
+
+    header: renderText("Property", NORMAL)
+},
+{
+	id: "typename",
+	
+	sizing: {
+		minimum:120
+	},
+
+    header: renderText("Type", NORMAL)
+},
+{
+	id: "value",
+	
+	sizing: {
+		weight:1
+	},
+
+    header: renderText("value", NORMAL)
+}
+
+
+
+]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[nodeDescriptors]]></set>
+									<set property="script"><![CDATA[[new NodeDescriptor<ViewDataWrapper> {
+    parentNodeStyleClosure: node-> {
+        return PARENT_IF_HAS_CHILDREN;
+    },
+    childrenClosure: node -> {
+	if (node.typeHelper == "LIST") {
+		return (List<Object>)node.value;
+	}
+
+	if(node.typeHelper == "STRUCT"){
+		return wrapStructureData((Structure)node.value);
+	}
+},
+
+	columnsData: [ 		
+	{
+            id: "propName",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(node.propName, NORMAL);
+                return view;
+            }
+        
+        },{
+            id: "typename",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+
+                view.content = renderText(node.valueType, NORMAL);
+                return view;
+            }
+        
+        },{
+            id: "value",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                if(node.typeHelper == "PLAIN"){
+			view.content = renderText(node.value, NORMAL);
+		}
+                return view;
+            }
+        
+        }
+
+
+     ]
+},new NodeDescriptor<String> {
+    parentNodeStyleClosure: node-> {
+        return PARENT_IF_HAS_CHILDREN;
+    },
+    childrenClosure: node -> { return [];},
+
+	columnsData: [ 		
+	{
+            id: "value",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(node, NORMAL);
+                return view;
+            }
+        
+        }
+     ]
+},new NodeDescriptor<Structure> {
+    parentNodeStyleClosure: node-> {
+        return PARENT_IF_HAS_CHILDREN;
+    },
+    childrenClosure: node -> { return wrapStructureData(node);},
+
+	columnsData: [ 		
+	{
+            id: "propName",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(cellId, NORMAL);
+                return view;
+            }
+        
+        },{
+            id: "value",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(node, NORMAL);
+                return view;
+            }
+        
+        }
+     ]
+},new NodeDescriptor<Object> {
+    parentNodeStyleClosure: node-> {
+        return PARENT_IF_HAS_CHILDREN;
+    },
+    childrenClosure: node -> { return [];},
+
+	columnsData: [ 		
+	{
+            id: "propName",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(cellId, NORMAL);
+                return view;
+            }
+        
+        },{
+            id: "value",
+        
+            cellViewSetup: (treeTable, cellId, node) -> {
+                Label view = treeTable.createCellView(cellId);
+                view.content = renderText(node, NORMAL);
+                return view;
+            }
+        
+        }
+     ]
+}
+
+
+]]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[root]]></set>
+									<set property="script"><![CDATA[wrapStructureData(viewData)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[eval tree.root;]]></set>
+					<set property="propertyName"><![CDATA[viewData]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+									<set property="minimumWidth">840</set>
+									<set property="minimumHeight">420</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[tree]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="currentView" type="forge.definitions.View"/>
+	<property name="viewData" type="forge.definitions.View"/>
+</type>

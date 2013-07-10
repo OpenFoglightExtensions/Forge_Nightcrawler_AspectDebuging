@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="NamespacesRoot" extends="Writable" xmlns="urn:quest-com:forge-types-1-0">
+	<property name="name" type="String"/>
+</type>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ScriptContainer" extends="Writable" xmlns="urn:quest-com:forge-types-1-0">
+	<property name="src" type="String"/>
+	<property name="result" type="Object"/>
+	<property name="error" type="Object"/>
+</type>

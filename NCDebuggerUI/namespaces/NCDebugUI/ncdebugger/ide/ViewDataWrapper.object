@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ViewDataWrapper" extends="Writable" xmlns="urn:quest-com:forge-types-1-0">
+	<property name="propName" type="String"/>
+	<property name="valueType" type="Type"/>
+	<property name="value" type="Object" is-nullable="true">
+		<set property="access">READ_WRITE</set>
+	</property>
+	<property name="typeHelper" type="String"/>
+</type>

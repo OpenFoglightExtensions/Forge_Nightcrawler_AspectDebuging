@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="GroovyScriptPopup" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.Label</import>
+	<import>forge.ui.core.loadUserObject</import>
+	<import>forge.ui.views.dialog.DialogButton</import>
+	<import>forge.ui.views.table.Column</import>
+	<import>ncdebugger.EmbeddedDebugDialog</import>
+	<import>ncdebugger.RIGHT</import>
+	<set property="timestamp">2013-07-10T12:42:29.432Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[buttons]]></set>
+					<set property="script"><![CDATA[[new DialogButton {
+	label: "execute",
+	onClick: () -> {
+		script.result = execPopupScript(script.src,this,currentNamespace);
+	}
+},new DialogButton {
+	label: "close",
+	onClick: () -> {
+		this.close();
+	}
+}
+]]]></set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[currentNamespace]]></set>
+					<set property="script"><![CDATA[ncdebugger]]></set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[script]]></set>
+					<set property="script"><![CDATA[{}]]></set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[savedScripts]]></set>
+					<set property="script"><![CDATA[loadUserObject("ncdebugger_scripts_storedScripts")]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[lblNamespace]]></set>
+					<set property="viewDefinition">Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("<<NAMESPACE>>",DIM)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText(printNamespace(currentNamespace),NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[lblNSHeader]]></set>
+					<set property="viewDefinition">Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("Namespace in scope:",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[selectNS]]></set>
+					<set property="viewDefinition">forge.ui.core.Button</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("select",DIM)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[srcInput]]></set>
+					<set property="viewDefinition">forge.ui.core.TextArea</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[placeHolder]]></set>
+									<set property="script"><![CDATA["Please enter your Code here"]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[tabs]]></set>
+					<set property="viewDefinition">forge.ui.core.TabManager&lt;ScriptContainer&gt;</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[tabs]]></set>
+									<set property="script"><![CDATA[[ScriptResultsTab,ScriptHelpTab]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[style]]></set>
+									<set property="script"><![CDATA[TOP_LEVEL]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[title]]></set>
+					<set property="viewDefinition">Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("Script Popup",NORMAL)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[tabs.updateViewInput(script);]]></set>
+					<set property="eventName"><![CDATA[initialized]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[eval lblNamespace.content;]]></set>
+					<set property="propertyName"><![CDATA[currentNamespace]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[
+
+NamespaceSelector ses = am.createPopUp();
+ses.scriptShell = this;
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[selectNS]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[script.src = value;]]></set>
+					<set property="eventName"><![CDATA[valueChanged]]></set>
+					<set property="propertyName"><![CDATA[srcInput]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint">
+					<set property="margins">
+						<object>
+							<set property="top">5</set>
+							<set property="bottom">10</set>
+						</object>
+					</set>
+				</object>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="bottom">2</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[title]]></set>
+							<set property="style">SECTION_HEADER</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Separator">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="top">5</set>
+											<set property="bottom">5</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">MIDDLE</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[lblNSHeader]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">10</set>
+													<set property="alignment">STRETCH</set>
+												</object>
+											</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">MIDDLE</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[lblNamespace]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">20</set>
+													<set property="alignment">STRETCH</set>
+												</object>
+											</set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint"/>
+											</set>
+											<set property="name"><![CDATA[selectNS]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">STRETCH</set>
+													<set property="weight">1</set>
+												</object>
+											</set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Separator">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+							<set property="style">DARK_BORDER</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.RowLayout">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="children">
+								<list>
+									<item>
+										<object type="forge.definitions.ChildRef">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="alignment">STRETCH</set>
+													<set property="weight">1</set>
+													<set property="minimumWidth">840</set>
+													<set property="minimumHeight">400</set>
+												</object>
+											</set>
+											<set property="name"><![CDATA[srcInput]]></set>
+										</object>
+									</item>
+								</list>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedHeight">250</set>
+									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="top">10</set>
+										</object>
+									</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[tabs]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="currentNamespace" type="Namespace"/>
+	<property name="script" type="ScriptContainer"/>
+	<property name="am" type="forge.ui.main.ActivityManager"/>
+	<property name="savedScripts" type="StoredScripts"/>
+	<method name="changeNamespace" return-type="Void">
+		<parameter name="namespace" type="ncdebugger.NamespaceWrapper"/>
+		<script><![CDATA[currentNamespace = getNamespace(namespace);]]></script>
+	</method>
+</type>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="Script" extends="Writable" xmlns="urn:quest-com:forge-types-1-0">
+	<property name="name" type="String"/>
+	<property name="src" type="String"/>
+</type>

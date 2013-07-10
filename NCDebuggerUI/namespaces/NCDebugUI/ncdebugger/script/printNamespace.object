@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<object type="forge.definitions.GroovyFunction&lt;Tuple&lt;Namespace&gt;, String&gt;" xmlns="urn:quest-com:forge-objects-1-0">
+	<set property="name"><![CDATA[printNamespace]]></set>
+	<set property="timestamp">2013-07-09T13:53:36.482Z</set>
+	<set property="access">PRIVATE</set>
+	<set property="parameters">
+		<list>
+			<item><![CDATA[ns]]></item>
+		</list>
+	</set>
+</object>

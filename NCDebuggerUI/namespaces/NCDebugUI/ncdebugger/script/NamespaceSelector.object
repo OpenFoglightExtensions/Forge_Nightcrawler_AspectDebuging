@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="NamespaceSelector" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.views.dialog.DialogButton</import>
+	<set property="timestamp">2013-07-10T11:46:02.422Z</set>
+	<set property="state">VALID</set>
+	<set property="initialExpressions">
+		<list>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[buttons]]></set>
+					<set property="script"><![CDATA[[new DialogButton {
+	label: "close",
+	onClick: () -> {
+		this.close();
+	}
+}
+]]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[tree]]></set>
+					<set property="viewDefinition">NamespacesTree</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[scriptShell.changeNamespace(namespace);
+this.close();]]></set>
+					<set property="eventName"><![CDATA[namespaceSelected]]></set>
+					<set property="propertyName"><![CDATA[tree]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+									<set property="minimumWidth">480</set>
+									<set property="minimumHeight">260</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[tree]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="scriptShell" type="GroovyScriptPopup"/>
+</type>

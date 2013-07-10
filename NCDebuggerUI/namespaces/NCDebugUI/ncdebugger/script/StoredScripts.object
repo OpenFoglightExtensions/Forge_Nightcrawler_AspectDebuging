@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="StoredScripts" extends="forge.definitions.Configuration" xmlns="urn:quest-com:forge-types-1-0">
+	<property name="scripts" type="List&lt;Script&gt;"/>
+</type>

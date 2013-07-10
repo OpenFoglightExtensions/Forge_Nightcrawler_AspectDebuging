@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="ViewButtons" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.definitions.View</import>
+	<import>forge.ui.core.INFO</import>
 	<import>ncdebugger.RIGHT</import>
 	<import>ncdebugger.UP</import>
-	<set property="timestamp">2013-07-02T14:05:46.535Z</set>
+	<set property="timestamp">2013-07-10T13:56:12.623Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -38,6 +40,22 @@
 					</set>
 				</object>
 			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[data]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderIcon(INFO,16,"NORMAL")]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="listeners">
@@ -58,6 +76,15 @@ comp.nodeShown = node.viewType;]]></set>
 					<set property="propertyName"><![CDATA[label2]]></set>
 				</object>
 			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[ViewData ses = createPopUp();
+ses.viewData = (View)node.view;
+ses.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[data]]></set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="layout">
@@ -71,6 +98,24 @@ comp.nodeShown = node.viewType;]]></set>
 			</set>
 			<set property="children">
 				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint"/>
+							</set>
+							<set property="name"><![CDATA[data]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedWidth">1</set>
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+						</object>
+					</item>
 					<item>
 						<object type="forge.definitions.ChildRef">
 							<set property="constraint">

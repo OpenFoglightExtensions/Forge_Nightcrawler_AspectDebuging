@@ -15,14 +15,15 @@ import java.io.StringWriter;
 
 def cs = Registry.getInstance(CartridgeService.class)
 
-
-def namespace = cs.getNamespaces("NCDebugUI").toArray()[0]
+def namespace = ns
 ScriptInfo info = new ScriptInfo(namespace, "dynamicScript",
 				ScriptOrigin.FUNCTION);
 
 
 Bindings bindings = new SimpleBindings();
 bindings.put("_view",view);
+bindings.put("_ns",ns);
+
 
 
 

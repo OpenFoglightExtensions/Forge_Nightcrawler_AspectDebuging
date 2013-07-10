@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="NamespacesTree" extends="forge.ui.core.CustomWidget" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.config.ConfigNamespace</import>
+	<import>forge.ide.frame.getCartridges</import>
+	<import>forge.ui.core.Label</import>
+	<import>forge.ui.views.treetable.NodeDescriptor</import>
+	<import>forge.ui.views.treetable.ParentNodeStyle</import>
+	<import>ncdebugger.NamespaceWrapper</import>
+	<set property="timestamp">2013-07-10T11:40:14.637Z</set>
+	<set property="state">WARNING</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[tree]]></set>
+					<set property="viewDefinition">forge.ui.core.TreeTable</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[columnsStructure]]></set>
+									<set property="script"><![CDATA[[
+{
+	id: "name",
+	weight:1,
+	sizing: {
+		minimum:180
+	},
+	clickable:false,
+    header: renderText("Name", NORMAL)
+}
+]
+]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[root]]></set>
+									<set property="script"><![CDATA[[new NamespacesRoot {
+name: "System"
+}]]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[nodeDescriptors]]></set>
+									<set property="script"><![CDATA[[
+new NodeDescriptor<NamespacesRoot> {
+    childrenClosure: node -> {
+		return getCartridges();
+     },
+	columnsData: [{
+            		id: "name",
+        
+            		cellViewSetup: (treeTable, cellId, node) -> {
+	    	            	Label view = treeTable.createCellView(cellId);
+        		        view.content = renderText(node.name, NORMAL);
+	                	return view;
+	                }
+        	}]
+}, //Cartridges
+new NodeDescriptor<String> {
+    childrenClosure: node -> {
+		return getNamespaces(node);
+     },
+	columnsData: [{
+
+            		id: "name",
+        
+            		cellViewSetup: (treeTable, cellId, node) -> {
+	    	            	Label view = treeTable.createCellView(cellId);
+        		        view.content = renderText(node, NORMAL);
+	                	return view;
+	                }
+        	}]
+},
+new NodeDescriptor<ncdebugger.NamespaceWrapper> {
+    parentNodeStyleClosure: node-> {
+        return ParentNodeStyle.PARENT_IF_HAS_CHILDREN;
+    },
+    childrenClosure: node -> {
+		return [];
+     },
+	columnsData: [{
+
+            		id: "name",
+        
+            		cellViewSetup: (treeTable, cellId, node) -> {
+	    	            	Label view = treeTable.createCellView(cellId);
+        		        view.content = renderText(node.path, NORMAL);
+	                	return view;
+	                }
+        	}]
+}
+
+
+
+]
+
+
+]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[singleSelectionEnabled]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[if (NamespaceWrapper.isInstance(node)) {
+	emit namespaceSelected((NamespaceWrapper)node);
+}]]></set>
+					<set property="eventName"><![CDATA[nodeSelected]]></set>
+					<set property="propertyName"><![CDATA[tree]]></set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[tree]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="selectedNamespace" type="Object"/>
+	<event name="namespaceSelected">
+		<parameter name="namespace" type="NamespaceWrapper"/>
+	</event>
+</type>

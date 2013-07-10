@@ -9,7 +9,7 @@
 	<import>ncdebugger.getSessionsInfo</import>
 	<import>ncdebugger.wrapChildViews</import>
 	<import>ncdebugger.wrapSessionMain</import>
-	<set property="timestamp">2013-07-04T06:11:01.324Z</set>
+	<set property="timestamp">2013-07-10T14:25:41.671Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -82,9 +82,9 @@ weight:1,
 weight:0,
         header: renderText("", NORMAL),
 sizing: {
-minimum:45,
+minimum:52,
 weight:0,
-width:45
+width:52
 }
     }
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<type name="ScriptResultsTab" extends="forge.ui.core.TabPane&lt;ScriptContainer&gt;" xmlns="urn:quest-com:forge-types-1-0">
+	<import>forge.ui.core.renderText</import>
+	<type-method name="renderLabel" return-type="forge.definitions.RendererOutput">
+		<parameter name="view" type="forge.definitions.View"/>
+		<parameter name="input" type="ScriptContainer"/>
+		<script><![CDATA[return renderText("Result",NORMAL);]]></script>
+	</type-method>
+	<set property="timestamp">2013-07-09T16:12:29.545Z</set>
+	<set property="state">VALID</set>
+	<set property="childSpecs">
+		<list>
+			<item>
+				<object>
+					<set property="name"><![CDATA[resultText]]></set>
+					<set property="viewDefinition">forge.ui.core.TextArea</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[readOnly]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[handleTabs]]></set>
+									<set property="script"><![CDATA[true]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+					<set property="registeredExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[value]]></set>
+									<set property="script"><![CDATA[convertToResult(scope.result)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="listeners">
+		<list>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[scope = value;]]></set>
+					<set property="eventName"><![CDATA[viewInputUpdated]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.PropertyChangeListener">
+					<set property="script"><![CDATA[eval resultText.value;]]></set>
+					<set property="propertyName"><![CDATA[scope]]></set>
+					<set property="path">
+						<list>
+							<item><![CDATA[result]]></item>
+						</list>
+					</set>
+				</object>
+			</item>
+		</list>
+	</set>
+	<set property="layout">
+		<object type="forge.definitions.ColumnLayout">
+			<set property="constraint">
+				<object type="forge.definitions.TopLevelConstraint"/>
+			</set>
+			<set property="children">
+				<list>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="alignment">STRETCH</set>
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[resultText]]></set>
+						</object>
+					</item>
+				</list>
+			</set>
+		</object>
+	</set>
+	<property name="scope" type="ScriptContainer"/>
+</type>
