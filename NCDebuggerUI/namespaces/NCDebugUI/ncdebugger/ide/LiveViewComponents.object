@@ -9,7 +9,7 @@
 	<import>ncdebugger.getSessionsInfo</import>
 	<import>ncdebugger.wrapChildViews</import>
 	<import>ncdebugger.wrapSessionMain</import>
-	<set property="timestamp">2013-07-10T14:25:41.671Z</set>
+	<set property="timestamp">2013-07-10T14:59:25.532Z</set>
 	<set property="state">VALID</set>
 	<set property="childSpecs">
 		<list>
@@ -145,7 +145,7 @@ width:52
 			</item>
 			<item>
 				<object type="forge.definitions.EventListener">
-					<set property="script"><![CDATA[trComponents.root = [ wrapSessionMain(getSessionsInfo(this)[0].session)];]]></set>
+					<set property="script"><![CDATA[eval trComponents.root;]]></set>
 					<set property="eventName"><![CDATA[clicked]]></set>
 					<set property="propertyName"><![CDATA[refresh]]></set>
 				</object>

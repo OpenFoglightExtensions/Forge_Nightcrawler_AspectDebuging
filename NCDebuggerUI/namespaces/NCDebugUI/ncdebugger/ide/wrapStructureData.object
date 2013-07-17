@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object type="forge.definitions.GroovyFunction&lt;Tuple&lt;Structure&gt;, List&lt;ViewDataWrapper&gt;&gt;" xmlns="urn:quest-com:forge-objects-1-0">
 	<set property="name"><![CDATA[wrapStructureData]]></set>
+	<set property="timestamp">2013-07-10T14:18:12.135Z</set>
 	<set property="access">PRIVATE</set>
 	<set property="parameters">
 		<list>

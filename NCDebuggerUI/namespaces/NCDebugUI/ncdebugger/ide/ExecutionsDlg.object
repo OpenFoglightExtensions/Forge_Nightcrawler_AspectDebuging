@@ -2,7 +2,7 @@
 <type name="ExecutionsDlg" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
 	<import>forge.ui.views.dialog.DialogButton</import>
 	<import>ncdebugger.getCurrentSessionInfo</import>
-	<set property="timestamp">2013-07-04T14:19:54.764Z</set>
+	<set property="timestamp">2013-07-17T11:28:42.031Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -16,6 +16,12 @@
 	}
 }
 ]]]></set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[title]]></set>
+					<set property="script"><![CDATA[renderText("Executions",NORMAL)]]></set>
 				</object>
 			</item>
 		</list>

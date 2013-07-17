@@ -8,7 +8,7 @@
 	<import>ncdebugger.getSessionsInfo</import>
 	<import>ncdebugger.wrapChildExecutions</import>
 	<import>ncdebugger.wrapCurrentExecutions</import>
-	<set property="timestamp">2013-07-03T13:32:39.027Z</set>
+	<set property="timestamp">2013-07-17T11:28:20.383Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -24,6 +24,12 @@ new DialogButton {
 	}
 }
 ]]]></set>
+				</object>
+			</item>
+			<item>
+				<object>
+					<set property="propertyName"><![CDATA[title]]></set>
+					<set property="script"><![CDATA[renderText("Execution Details",NORMAL)]]></set>
 				</object>
 			</item>
 		</list>

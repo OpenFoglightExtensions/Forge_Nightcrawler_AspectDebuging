@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="NCDebuggingTile" extends="forge.ui.main.ChooserTile" xmlns="urn:quest-com:forge-types-1-0">
 	<import>forge.ui.main.ActivityManager</import>
-	<set property="timestamp">2013-07-04T14:09:07.518Z</set>
+	<set property="timestamp">2013-07-11T07:48:29.595Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -212,6 +212,11 @@ ses.show();]]></set>
 							<set property="constraint">
 								<object type="forge.definitions.BoxLayoutConstraint">
 									<set property="alignment">STRETCH</set>
+									<set property="margins">
+										<object>
+											<set property="right">10</set>
+										</object>
+									</set>
 								</object>
 							</set>
 							<set property="children">
@@ -250,6 +255,16 @@ ses.show();]]></set>
 												</object>
 											</set>
 											<set property="name"><![CDATA[lblOverlay]]></set>
+										</object>
+									</item>
+									<item>
+										<object type="forge.definitions.Spacer">
+											<set property="constraint">
+												<object type="forge.definitions.BoxLayoutConstraint">
+													<set property="fixedWidth">10</set>
+													<set property="alignment">STRETCH</set>
+												</object>
+											</set>
 										</object>
 									</item>
 								</list>
