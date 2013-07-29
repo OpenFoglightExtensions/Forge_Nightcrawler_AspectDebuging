@@ -7,7 +7,7 @@
 	<import>forge.ui.views.dialog.DialogButton</import>
 	<import>forge.ui.views.table.Column</import>
 	<import>forge.ui.views.table.LargeDataColumn</import>
-	<set property="timestamp">2013-07-17T10:39:09.395Z</set>
+	<set property="timestamp">2013-07-02T22:23:25.196Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -28,12 +28,6 @@ new DialogButton {
 	}
 }
 ]]]></set>
-				</object>
-			</item>
-			<item>
-				<object>
-					<set property="propertyName"><![CDATA[title]]></set>
-					<set property="script"><![CDATA[renderText("Sessions",NORMAL)]]></set>
 				</object>
 			</item>
 		</list>

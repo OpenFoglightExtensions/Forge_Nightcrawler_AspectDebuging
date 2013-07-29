@@ -2,7 +2,7 @@
 <type name="ViewTreeDlg" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
 	<import>forge.ui.views.dialog.DialogButton</import>
 	<import>ncdebugger.getCurrentSessionInfo</import>
-	<set property="timestamp">2013-07-17T11:29:14.331Z</set>
+	<set property="timestamp">2013-07-04T14:16:42.359Z</set>
 	<set property="state">VALID</set>
 	<set property="initialExpressions">
 		<list>
@@ -16,12 +16,6 @@
 	}
 }
 ]]]></set>
-				</object>
-			</item>
-			<item>
-				<object>
-					<set property="propertyName"><![CDATA[title]]></set>
-					<set property="script"><![CDATA[renderText("View Data",NORMAL)]]></set>
 				</object>
 			</item>
 		</list>

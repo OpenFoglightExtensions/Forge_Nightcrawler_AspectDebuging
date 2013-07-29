@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <type name="EmbeddedDebugDialog" extends="forge.ui.core.Dialog" xmlns="urn:quest-com:forge-types-1-0">
-	<import>forge.ui.core.INFO</import>
+	<import>forge.ide.INFO</import>
+	<import>forge.ide.frame.AnvilEvaluator</import>
 	<import>forge.ui.main.ActivityManager</import>
 	<import>ncdebugger.ide.ExecutionsDlg</import>
 	<import>ncdebugger.ide.ViewTreeDlg</import>
 	<import>ncdebugger.script.GroovyScriptPopup</import>
-	<set property="timestamp">2013-07-10T11:28:25.578Z</set>
-	<set property="state">VALID</set>
+	<set property="timestamp">2013-07-18T12:31:07.370Z</set>
+	<set property="state">WARNING</set>
 	<set property="initialExpressions">
 		<list>
 			<item>
@@ -83,6 +84,22 @@
 					</set>
 				</object>
 			</item>
+			<item>
+				<object>
+					<set property="name"><![CDATA[label2]]></set>
+					<set property="viewDefinition">forge.ui.core.Label</set>
+					<set property="initialExpressions">
+						<list>
+							<item>
+								<object>
+									<set property="propertyName"><![CDATA[content]]></set>
+									<set property="script"><![CDATA[renderText("[anvil]",DIM)]]></set>
+								</object>
+							</item>
+						</list>
+					</set>
+				</object>
+			</item>
 		</list>
 	</set>
 	<set property="listeners">
@@ -124,6 +141,15 @@ ses.am = am;
 ses.show();]]></set>
 					<set property="eventName"><![CDATA[clicked]]></set>
 					<set property="propertyName"><![CDATA[groovy]]></set>
+				</object>
+			</item>
+			<item>
+				<object type="forge.definitions.EventListener">
+					<set property="script"><![CDATA[
+AnvilEvaluator dialog = createPopUp();
+dialog.show();]]></set>
+					<set property="eventName"><![CDATA[clicked]]></set>
+					<set property="propertyName"><![CDATA[label2]]></set>
 				</object>
 			</item>
 		</list>
@@ -195,6 +221,26 @@ ses.show();]]></set>
 								<object type="forge.definitions.BoxLayoutConstraint"/>
 							</set>
 							<set property="name"><![CDATA[groovy]]></set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.Spacer">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="fixedWidth">5</set>
+									<set property="alignment">STRETCH</set>
+								</object>
+							</set>
+						</object>
+					</item>
+					<item>
+						<object type="forge.definitions.ChildRef">
+							<set property="constraint">
+								<object type="forge.definitions.BoxLayoutConstraint">
+									<set property="weight">1</set>
+								</object>
+							</set>
+							<set property="name"><![CDATA[label2]]></set>
 						</object>
 					</item>
 				</list>

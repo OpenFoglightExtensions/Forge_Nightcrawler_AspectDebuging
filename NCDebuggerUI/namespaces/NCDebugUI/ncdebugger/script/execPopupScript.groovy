@@ -1,40 +1,19 @@
 package ncdebugger.script;
 
-
-import com.quest.forge.ui.core.services.Registry;
-import com.quest.forge.ui.core.services.ScriptService;
-import com.quest.forge.ui.core.services.*
-import com.quest.forge.ui.core.data.*
-import com.quest.forge.ui.core.module.namespace.*
-import com.quest.forge.ui.core.data.editable.*;
-import com.quest.forge.ui.core.services.script.*
-import javax.script.*;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-
-def cs = Registry.getInstance(CartridgeService.class)
-
-def namespace = ns
-ScriptInfo info = new ScriptInfo(namespace, "dynamicScript",
-				ScriptOrigin.FUNCTION);
-
-
-Bindings bindings = new SimpleBindings();
-bindings.put("_view",view);
-bindings.put("_ns",ns);
-
-
-
-
-
-
-// Execute
-
 try {
 
-//return de.dsg.forge.nc.aspectDebugger.SessionRegistry.class.getName()
-return Registry.getInstance(ScriptService.class).eval(src, info, bindings);
+def ss = server.ScriptingService
+def sd = ss.createScriptDefinition(src)
+sd.name = "plainScript"
+def script = sd.prepare().invocation()
+
+script.addVariable("view",view)
+script.addVariable("ns",ns)
+
+return ss.invoke(script)
 
 } catch (Throwable t) {
 def errorMessage = "ERROR !!!!\n------------------\n"

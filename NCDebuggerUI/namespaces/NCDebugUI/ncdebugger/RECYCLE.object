@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object type="forge.definitions.Icon" xmlns="urn:quest-com:forge-objects-1-0">
 	<set property="name"><![CDATA[RECYCLE]]></set>
-	<set property="timestamp">2013-07-02T14:00:02.786Z</set>
-	<set property="access">PRIVATE</set>
+	<set property="timestamp">2013-07-18T12:27:37.796Z</set>
+	<set property="access">PUBLIC</set>
 </object>

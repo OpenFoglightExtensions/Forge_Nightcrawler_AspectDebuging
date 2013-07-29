@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <object type="forge.definitions.GroovyFunction&lt;Tuple&lt;ncdebugger.NamespaceWrapper&gt;, Namespace&gt;" xmlns="urn:quest-com:forge-objects-1-0">
 	<set property="name"><![CDATA[getNamespace]]></set>
-	<set property="timestamp">2013-07-10T11:44:25.975Z</set>
+	<set property="timestamp">2013-07-10T11:43:02.324Z</set>
 	<set property="access">PRIVATE</set>
 	<set property="parameters">
 		<list>
